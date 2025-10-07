@@ -1,102 +1,109 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 
-import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
+import Header from '~/components/widgets/Header.astro';
+import Hero2 from '~/components/widgets/Hero2.astro';
 import Features from '~/components/widgets/Features.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import Steps from '~/components/widgets/Steps.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
 import Content from '~/components/widgets/Content.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import Pricing from '~/components/widgets/Pricing.astro';
+
+import { headerData } from '~/navigation';
 import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 
 const metadata = {
-  title: 'AstroWind — Free template for creating websites with Astro + Tailwind CSS',
-  ignoreTitleTemplate: true,
+  title: 'Moly AI - Open-Source Cross-Platform AI LLM Client',
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
+  <Fragment slot="header">
+    <Header
+      {...headerData}
+      actions={[
+        {
+          variant: 'secondary',
+          text: 'View on GitHub',
+          href: 'https://github.com/moxin-org/moly',
+          target: '_blank',
+        },
+        {
+          variant: 'primary',
+          text: 'Download',
+          href: 'https://github.com/moxin-org/moly/releases',
+          target: '_blank',
+        },
+      ]}
+      isSticky
+    />
+  </Fragment>
 
-  <Hero
+  <!-- Hero2 Widget ******************* -->
+
+  <Hero2
+    tagline="Open-Source AI LLM Client"
     actions={[
-      {
-        variant: 'primary',
-        text: 'Get template',
-        href: 'https://github.com/arthelokyo/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
+      { variant: 'primary', target: '_blank', text: 'Download Now', href: 'https://github.com/moxin-org/moly/releases' },
       { text: 'Learn more', href: '#features' },
     ]}
-    image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image' }}
+    image={{
+      src: '~/assets/images/hero-image.png',
+      alt: 'Moly AI App Interface',
+    }}
   >
     <Fragment slot="title">
-      Free template for <span class="hidden xl:inline">creating websites with</span>
-      <span class="text-accent dark:text-white"> Astro 5.0</span> + Tailwind CSS
+      Meet Moly AI: <br /> Your powerful <span class="text-accent dark:text-white">cross-platform</span> AI companion<br
+      />
     </Fragment>
 
     <Fragment slot="subtitle">
       <span class="hidden sm:inline">
-        <span class="font-semibold">AstroWind</span> is a free, customizable and production-ready template for Astro 5.0
-        + Tailwind CSS.</span
+        Experience the future of AI interaction with <span class="font-semibold">Moly AI</span>, built in Rust.</span
       >
-      <span class="block mb-1 sm:hidden font-bold text-blue-600">AstroWind: Production-ready.</span>
-      Suitable for Startups, Small Business, SaaS websites, Professional Portfolios, Marketing websites, Landing Pages &
-      Blogs.
+      Connect to local and remote LLMs with a beautiful, fast, and secure interface that works on desktop, web, and mobile.
     </Fragment>
-  </Hero>
-
-  <!-- Note Widget ******************* -->
-
-  <Note title="Philosophy:" description="Simplicity, Best Practices and High Performance" />
+  </Hero2>
 
   <!-- Features Widget *************** -->
 
   <Features
     id="features"
-    tagline="Features"
-    title="What you get with AstroWind"
-    subtitle="One of the most professional and comprehensive templates currently on the market. Most starred & forked Astro theme in 2022, 2023 and 2024."
+    title="Why choose Moly AI?"
+    subtitle="Discover the powerful features that make Moly the ultimate AI LLM client."
+    columns={2}
     items={[
       {
-        title: 'Astro + Tailwind CSS Integration',
+        title: 'Cross-Platform Compatibility',
         description:
-          'A seamless integration between two great frameworks that offer high productivity, performance and versatility.',
-        icon: 'tabler:brand-tailwind',
+          'Built with Rust and Makepad, Moly runs natively on macOS, Linux, Windows, and even in your web browser. One app, everywhere you need it.',
+        icon: 'tabler:device-desktop',
       },
       {
-        title: 'Ready-to-use Components',
-        description:
-          'Widgets made with Tailwind CSS ready to be used in Marketing Websites, SaaS, Blogs, Personal Profiles, Small Business...',
-        icon: 'tabler:components',
+        title: 'Local and Remote LLM Support',
+        description: `Connect to OpenAI, Anthropic, and other cloud providers, or run models locally with Moly Server. Complete privacy and flexibility in one package.`,
+        icon: 'tabler:cloud-computing',
       },
       {
-        title: 'Best Practices',
+        title: 'Lightning Fast Performance',
         description:
-          'Creating secure, efficient, and user-friendly websites that deliver exceptional experiences and lasting value.',
-        icon: 'tabler:list-check',
-      },
-      {
-        title: 'Excellent Page Speed',
-        description:
-          'Having a good page speed impacts organic search ranking, improves user experience (UI/UX) and increase conversion rates.',
+          'Built in Rust for maximum performance and memory safety. Experience instant responses and smooth interactions even with large language models.',
         icon: 'tabler:rocket',
       },
       {
-        title: 'Search Engine Optimization (SEO)',
-        description:
-          "SEO lies in its ability to enhance a website's visibility, driving organic traffic and enabling it to reach a wider audience.",
-        icon: 'tabler:arrows-right-left',
+        title: 'Open Source & Extensible',
+        description: `Fully open source with Apache 2.0 license. Extend functionality with MolyKit, contribute to the project, or build your own AI applications on top of the framework.`,
+        icon: 'tabler:code',
       },
       {
-        title: 'Open to new ideas and contributions',
-        description:
-          'Embracing a culture that is open to new ideas and contributions is integral fostering innovation, collaboration, and a dynamic user experience.',
-        icon: 'tabler:bulb',
+        title: 'Privacy-First Design',
+        description: `Your conversations stay private. Use local models for complete privacy or choose cloud providers while maintaining control over your data.`,
+        icon: 'tabler:shield-lock',
+      },
+      {
+        title: 'AI Agent Integration',
+        description: `Connect to MoFa servers to interact with AI agents. Build and deploy custom AI workflows using templates and the Dora framework.`,
+        icon: 'tabler:robot',
       },
     ]}
   />
@@ -104,34 +111,29 @@ const metadata = {
   <!-- Content Widget **************** -->
 
   <Content
+    title="Use cases"
+    subtitle="Discover how Moly AI serves developers, researchers, and AI enthusiasts across different scenarios."
     isReversed
-    tagline="Inside template"
-    title="AstroWind's Blueprint: Fun Meets Functionality!"
     items={[
       {
-        title: 'Built on top of Astro 5.0',
+        title: 'Description:',
         description:
-          'Benefiting from the performance and developer-friendly features of this modern static site generator.',
+          'Developers love Moly for its extensibility and performance. Built on the robust Makepad UI toolkit and Project Robius framework, Moly provides a solid foundation for AI application development. Use MolyKit widgets and utilities to build your own AI-powered applications.',
       },
       {
-        title: 'Styled using Tailwind CSS',
-        description:
-          'Facilitating rapid design and consistent styling with this highly popular utility-first CSS framework.',
-      },
-      {
-        title: 'Cross-browser compatibility',
-        description:
-          'Ensure your website looks and functions consistently across various web browsers, delivering a seamless experience to all users.',
+        title: 'Benefits:',
+        description: `Access to MolyKit framework for building custom AI applications. <br /> Cross-platform deployment with a single codebase written in Rust. <br /> Integration with multiple AI providers and local model support. <br /> Open source architecture allowing full customization and contribution.`,
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Colorful Image',
+      src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+      alt: 'Developer workspace',
     }}
   >
     <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Building on modern foundations</h3>
-      Gain a competitive advantage by incorporating industry leading practices
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        For Developers: <br /><span class="text-2xl">Build the future of AI</span>
+      </h3>
     </Fragment>
 
     <Fragment slot="bg">
@@ -142,34 +144,27 @@ const metadata = {
   <!-- Content Widget **************** -->
 
   <Content
-    isAfterContent
+    isAfterContent={true}
     items={[
       {
-        title: 'High level of customization',
-        description: `Tailor the template effortlessly to match your brand's identity and requirements, making your website distinct and saving you time.`,
+        title: 'Description:',
+        description: `Privacy-conscious users choose Moly for its local model support and data sovereignty. With Moly Server, you can download and run open-source LLMs entirely on your machine, ensuring your conversations never leave your device. Perfect for sensitive work or personal use.`,
       },
       {
-        title: 'Multiple layout possibilities',
-        description:
-          'Explore various layout options to find the structure that best presents your content, enhancing user engagement and navigation.',
-      },
-      {
-        title: 'Fully responsive design',
-        description:
-          "Ensure your website's optimal performance on various devices and screen sizes, providing a consistent and enjoyable user experience.",
-      },
-      {
-        title: 'Integration of media',
-        description:
-          'Seamlessly incorporate images, videos, and multimedia elements that enhance your content and engage visitors effectively.',
+        title: 'Benefits:',
+        description: `Complete data privacy with local model execution. <br /> No internet connection required for local models. <br /> Support for popular open-source models like Llama, Mistral, and more. <br /> Easy model management with search, download, and switching capabilities. <br /> OpenAI-compatible API for seamless integration with existing tools.`,
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2194&q=80',
-      alt: 'Blueprint Image',
+      src: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+      alt: 'Privacy and Security',
     }}
   >
-    <Fragment slot="content">Ensure your online presence truly represents you.</Fragment>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Privacy First: <br /><span class="text-2xl">Your data stays yours</span>
+      </h3>
+    </Fragment>
 
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
@@ -180,220 +175,176 @@ const metadata = {
 
   <Content
     isReversed
-    isAfterContent
+    isAfterContent={true}
     items={[
       {
-        title: 'Enhanced user engagement',
-        description:
-          'Captivate your audience with interactive elements, intuitive navigation, and visually appealing layouts, encouraging longer visits.',
+        title: 'Description:',
+        description: `Researchers and AI enthusiasts use Moly to experiment with cutting-edge language models. Compare different models side-by-side, test prompts across multiple providers, and explore the latest developments in AI. The flexible provider system supports both established and emerging AI services.`,
       },
       {
-        title: 'Continuous improvement',
-        description:
-          'Ensure your website stays aligned with the latest trends and technologies through regular updates and enhancements.',
-      },
-      {
-        title: 'Time and resource efficiency',
-        description:
-          'Skip the time-consuming process of building a website from scratch and launch your online presence sooner with AstroWind.',
-      },
-      {
-        title: 'Community support',
-        description: `Join the growing AstroWind community for insights, resources, and assistance, ensuring you're never alone on your web development journey.`,
+        title: 'Benefits:',
+        description: `Easy switching between different AI models and providers. <br /> Support for latest models from OpenAI, Anthropic, and other providers. <br /> Integration with AI agent frameworks like MoFa for advanced workflows. <br /> Clean, distraction-free interface optimized for extended research sessions.`,
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1611462985358-60d3498e0364?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Astronauts Image',
+      src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80',
+      alt: 'Research and AI',
     }}
   >
-    <Fragment slot="content">Designed to foster growth and success.</Fragment>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        For Researchers: <br /><span class="text-2xl">Explore AI frontiers</span>
+      </h3>
+    </Fragment>
 
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
-  <!-- Steps Widget ****************** -->
+  <!-- Content Widget **************** -->
 
-  <Steps
-    title="Get your dream website up and running in no time with AstroWind."
+  <Content
     items={[
       {
-        title: 'Step 1: <span class="font-medium">Download</span>',
-        description:
-          "Kickstart with GitHub! Either fork the AstroWind template or simply click 'Use this template'. Your canvas awaits, ready for your digital masterpiece. In just a few clicks, you've already set the foundation.",
-        icon: 'tabler:package',
+        title: 'Description:',
+        description: `Experience true cross-platform deployment with Moly. Built with Rust and the Makepad framework, the same codebase runs natively on desktop (macOS, Linux, Windows), in web browsers, and on mobile devices. No compromises on performance or user experience across platforms.`,
       },
       {
-        title: 'Step 2: <span class="font-medium">Add content</span>',
-        description:
-          "Pour your vision into it. Add images, text, and all that jazz to breathe life into your digital space. Remember, it's the content that tells your story, so make it captivating.",
-        icon: 'tabler:letter-case',
-      },
-      {
-        title: 'Step 3: <span class="font-medium">Customize styles</span>',
-        description:
-          'Give it your personal touch. Tailor colors, fonts, and layouts until it feels just right. Your unique flair, amplified by AstroWind! Precision in design ensures a seamless user experience.',
-        icon: 'tabler:paint',
-      },
-      {
-        title: 'Ready!',
-        icon: 'tabler:check',
+        title: 'Benefits:',
+        description: `Single codebase for all platforms reduces development time. <br /> Native performance on each platform without sacrificing features. <br /> Consistent user experience whether on desktop, web, or mobile. <br /> Easy packaging and distribution with built-in tools for all major platforms.`,
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1616198814651-e71f960c3180?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
-      alt: 'Steps image',
+      src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80',
+      alt: 'Cross-platform development',
     }}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Most used widgets"
-    subtitle="Provides frequently used components for building websites using Tailwind CSS"
-    tagline="Components"
-    items={[
-      {
-        title: 'Headers',
-        description: "Ever tried driving without GPS? Boom! That's why websites need headers for direction.",
-        icon: 'flat-color-icons:template',
-      },
-      {
-        title: 'Heros',
-        description:
-          "Picture a superhero landing – epic, right? That's the job of a Hero section, making grand entrances!",
-        icon: 'flat-color-icons:gallery',
-      },
-      {
-        title: 'Features',
-        description:
-          'Where websites strut their stuff and show off superpowers. No holding back on the bragging rights here!',
-        icon: 'flat-color-icons:approval',
-      },
-      {
-        title: 'Content',
-        description:
-          "Dive into the meat and potatoes of a site; without it, you'd just be window shopping. Content is king.",
-        icon: 'flat-color-icons:document',
-      },
-      {
-        title: 'Call-to-Action',
-        description:
-          'That enthusiastic friend who\'s always urging, "Do it! Do it!"? Yeah, that\'s this button nudging you towards adventure.',
-        icon: 'flat-color-icons:advertising',
-      },
-      {
-        title: 'Pricing',
-        description: 'Behold the dessert menu of the website world. Tempting choices await, can you resist?',
-        icon: 'flat-color-icons:currency-exchange',
-      },
-      {
-        title: 'Testimonial',
-        description: 'Step into the gossip corner! Here, other visitors spill the beans and share the juicy details.',
-        icon: 'flat-color-icons:voice-presentation',
-      },
-      {
-        title: 'Contact',
-        description:
-          'Like a digital mailbox, but faster! Drop a line, ask a question, or send a virtual high-five. Ding! Message in.',
-        icon: 'flat-color-icons:business-contact',
-      },
-      {
-        title: 'Footers',
-        description: "The footer's like the credits of a movie but sprinkled with easter eggs. Time to hunt!",
-        icon: 'flat-color-icons:database',
-      },
-    ]}
   >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Cross-Platform Excellence: <br /><span class="text-2xl">One app, everywhere</span>
+      </h3>
+    </Fragment>
+
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
-  </Features2>
+  </Content>
 
-  <!-- HighlightedPosts Widget ******* -->
+  <!-- Pricing Widget ******************* -->
 
-  <BlogLatestPosts
-    title="Find out more content in our Blog"
-    information={`The blog is used to display AstroWind documentation.
-                        Each new article will be an important step that you will need to know to be an expert in creating a website using Astro + Tailwind CSS.
-                        Astro is a very interesting technology. Thanks.
-                `}
+  <Pricing
+    title="Get Moly AI Today"
+    prices={[
+      {
+        title: 'Open Source',
+        subtitle: 'Free forever with full access to all features',
+        price: '0',
+        period: '/ forever',
+        callToAction: {
+          target: '_blank',
+          text: 'Download Now',
+          href: 'https://github.com/moxin-org/moly/releases',
+        },
+      },
+      {
+        title: 'Build from Source',
+        subtitle: 'Get the latest features and contribute to development',
+        price: 'Free',
+        period: '/ open source',
+        callToAction: {
+          target: '_blank',
+          text: 'View on GitHub',
+          href: 'https://github.com/moxin-org/moly',
+        },
+        hasRibbon: true,
+        ribbonTitle: 'developers',
+      },
+      {
+        title: 'MolyKit Framework',
+        subtitle: 'Build your own AI applications with our toolkit',
+        price: 'Free',
+        period: '/ Apache 2.0',
+        callToAction: {
+          target: '_blank',
+          text: 'Read Documentation',
+          href: 'https://moxin-org.github.io/moly/',
+        },
+      },
+    ]}
   />
 
   <!-- FAQs Widget ******************* -->
 
   <FAQs
     title="Frequently Asked Questions"
-    subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
-    tagline="FAQs"
-    classes={{ container: 'max-w-6xl' }}
     items={[
       {
-        title: 'Why AstroWind?',
+        title: 'What platforms does Moly AI support?',
         description:
-          "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
+          'Moly AI runs natively on macOS, Linux, and Windows. It also works in web browsers and has experimental support for Android and iOS. All platforms share the same codebase and feature set.',
+        icon: 'tabler:chevrons-right',
       },
       {
-        title: 'What do I need to start?',
-        description:
-          'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
+        title: 'Can I use Moly AI with local models for privacy?',
+        description: `Absolutely! Moly AI supports local model execution through Moly Server. You can download and run open-source models like Llama, Mistral, and others entirely on your machine without sending data to external servers.`,
+        icon: 'tabler:chevrons-right',
       },
       {
-        title: 'How to install the Astro + Tailwind CSS template?',
+        title: 'Is Moly AI really free and open source?',
         description:
-          "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.",
+          'Yes, Moly AI is completely free and licensed under Apache 2.0. You can use it for personal and commercial purposes, modify the source code, and contribute to the project. There are no hidden costs or premium features.',
+        icon: 'tabler:chevrons-right',
       },
       {
-        title: "What's something that you don't understand?",
-        description:
-          "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
-      },
-      {
-        title: 'What is something that you would like to try again?',
-        description:
-          "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
-      },
-      {
-        title: 'If you could only ask one question to each person you meet, what would that question be?',
-        description:
-          "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
-      },
-    ]}
-  />
-
-  <!-- Stats Widget ****************** -->
-
-  <Stats
-    stats={[
-      { title: 'Downloads', amount: '132K' },
-      { title: 'Stars', amount: '24.8K' },
-      { title: 'Forks', amount: '10.3K' },
-      { title: 'Users', amount: '48.4K' },
-    ]}
-  />
-
-  <!-- CallToAction Widget *********** -->
-
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Get template',
-        href: 'https://github.com/arthelokyo/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
+        title: 'How do I add my own AI provider to Moly?',
+        description: `Moly supports any OpenAI-compatible API. You can add custom providers through the Providers Dashboard, or contribute new providers to the project. The MolyKit framework also allows building custom integrations.`,
+        icon: 'tabler:chevrons-right',
       },
     ]}
   >
-    <Fragment slot="title">
-      Astro&nbsp;+&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Tailwind CSS</span>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
+  </FAQs>
 
-    <Fragment slot="subtitle">
-      Be very surprised by these huge fake numbers you are seeing on this page. <br class="hidden md:inline" />Don't
-      waste more time! :P
+  <!-- Steps2 Widget ****************** -->
+
+  <Steps2
+    title="Get Help & Connect"
+    subtitle="Need assistance or want to contribute? Connect with the Moly AI community!"
+    callToAction={{
+      text: 'Join the community',
+      href: 'https://github.com/moxin-org/moly/discussions',
+    }}
+    items={[
+      {
+        title: 'Report Issues',
+        description: 'github.com/moxin-org/moly/issues',
+        icon: 'tabler:bug',
+      },
+      {
+        title: 'Discussions',
+        description: 'Community support and ideas',
+        icon: 'tabler:messages',
+      },
+      {
+        title: 'Contribute',
+        description: 'Help improve Moly AI',
+        icon: 'tabler:git-branch',
+      },
+    ]}
+  />
+
+  <!-- BlogLatestPost Widget **************** -->
+
+  <BlogLatestPosts
+    id="blog"
+    title="Stay updated with Moly AI"
+    information={`Explore our collection of articles about AI development, local models, cross-platform development with Rust, and the latest features in Moly AI.`}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
-  </CallToAction>
+  </BlogLatestPosts>
 </Layout>
