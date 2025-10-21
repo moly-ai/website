@@ -2,37 +2,50 @@
 import Layout from '~/layouts/PageLayout.astro';
 
 import Header from '~/components/widgets/Header.astro';
-import Hero2 from '~/components/widgets/Hero2.astro';
+import Hero from '~/components/widgets/Hero.astro';
 import Features from '~/components/widgets/Features.astro';
 import Steps2 from '~/components/widgets/Steps2.astro';
 import Content from '~/components/widgets/Content.astro';
-import Pricing from '~/components/widgets/Pricing.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Button from '~/components/ui/Button.astro';
 
-import { headerData } from '~/navigation';
 import FAQs from '~/components/widgets/FAQs.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 
+// Import video and poster image
+import molyDemoVideo from '~/assets/videos/moly-chat-demo.mov';
+import heroPosterImage from '~/assets/images/hero-image.png';
+
 const metadata = {
-  title: 'Moly AI - Open-Source Cross-Platform AI LLM Client',
+  title: 'Moly App - Open-Source Cross-Platform AI LLM Voice Chat Client',
 };
 ---
 
 <Layout metadata={metadata}>
   <Fragment slot="header">
     <Header
-      {...headerData}
+      position="left"
+      links={[
+        { text: 'Features', href: '#features' },
+        { text: 'Use Cases', href: '#use-cases' },
+        { text: 'FAQs', href: '#faqs' },
+      ]}
+      isSticky
+      showToggleTheme
       actions={[
         {
           variant: 'secondary',
           text: 'View on GitHub',
           href: 'https://github.com/moxin-org/moly',
           target: '_blank',
+          icon: 'tabler:brand-github',
         },
         {
           variant: 'primary',
           text: 'Download',
           href: 'https://github.com/moxin-org/moly/releases',
           target: '_blank',
+          icon: 'tabler:download',
         },
       ]}
       isSticky
@@ -41,42 +54,53 @@ const metadata = {
 
   <!-- Hero2 Widget ******************* -->
 
-  <Hero2
-    tagline="Open-Source AI LLM Client"
+  <Hero
+    tagline="Open-Source • AI • LLM • Voice • Chat • Client"
     actions={[
-      { variant: 'primary', target: '_blank', text: 'Download Now', href: 'https://github.com/moxin-org/moly/releases' },
+      {
+        variant: 'primary',
+        target: '_blank',
+        text: 'Download Now',
+        href: 'https://github.com/moxin-org/moly/releases',
+        icon: 'tabler:download',
+      },
       { text: 'Learn more', href: '#features' },
     ]}
-    image={{
-      src: '~/assets/images/hero-image.png',
-      alt: 'Moly AI App Interface',
-    }}
   >
     <Fragment slot="title">
-      Meet Moly AI: <br /> Your powerful <span class="text-accent dark:text-white">cross-platform</span> AI companion<br
+      Meet Moly App: <br /> Your powerful <span class="text-accent dark:text-white">cross-platform</span> AI companion<br
       />
     </Fragment>
 
     <Fragment slot="subtitle">
       <span class="hidden sm:inline">
-        Experience the future of AI interaction with <span class="font-semibold">Moly AI</span>, built in Rust.</span
+        Experience the future of AI interaction with <span class="font-semibold">Moly App</span>, built in Rust.</span
       >
       Connect to local and remote LLMs with a beautiful, fast, and secure interface that works on desktop, web, and mobile.
     </Fragment>
-  </Hero2>
+
+    <Fragment slot="image">
+      <div class="relative m-auto max-w-5xl">
+        <video class="mx-auto rounded-md w-full" autoplay muted loop playsinline poster={heroPosterImage.src}>
+          <source src={molyDemoVideo} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </Fragment>
+  </Hero>
 
   <!-- Features Widget *************** -->
 
   <Features
     id="features"
-    title="Why choose Moly AI?"
+    title="What is Moly App?"
     subtitle="Discover the powerful features that make Moly the ultimate AI LLM client."
     columns={2}
     items={[
       {
         title: 'Cross-Platform Compatibility',
         description:
-          'Built with Rust and Makepad, Moly runs natively on macOS, Linux, Windows, and even in your web browser. One app, everywhere you need it.',
+          'Built with Rust and Makepad, Moly runs natively on macOS, Linux, Windows, and eventually on iOS, Android and in your web browser. One app, everywhere you need it.',
         icon: 'tabler:device-desktop',
       },
       {
@@ -111,12 +135,13 @@ const metadata = {
   <!-- Content Widget **************** -->
 
   <Content
+    id="use-cases"
     title="Use cases"
-    subtitle="Discover how Moly AI serves developers, researchers, and AI enthusiasts across different scenarios."
+    subtitle="Discover how Moly App serves developers, researchers, and AI enthusiasts across different scenarios."
     isReversed
     items={[
       {
-        title: 'Description:',
+        title: 'Extensible:',
         description:
           'Developers love Moly for its extensibility and performance. Built on the robust Makepad UI toolkit and Project Robius framework, Moly provides a solid foundation for AI application development. Use MolyKit widgets and utilities to build your own AI-powered applications.',
       },
@@ -147,7 +172,7 @@ const metadata = {
     isAfterContent={true}
     items={[
       {
-        title: 'Description:',
+        title: 'Local First:',
         description: `Privacy-conscious users choose Moly for its local model support and data sovereignty. With Moly Server, you can download and run open-source LLMs entirely on your machine, ensuring your conversations never leave your device. Perfect for sensitive work or personal use.`,
       },
       {
@@ -178,7 +203,7 @@ const metadata = {
     isAfterContent={true}
     items={[
       {
-        title: 'Description:',
+        title: 'Multiple Sessions:',
         description: `Researchers and AI enthusiasts use Moly to experiment with cutting-edge language models. Compare different models side-by-side, test prompts across multiple providers, and explore the latest developments in AI. The flexible provider system supports both established and emerging AI services.`,
       },
       {
@@ -207,7 +232,7 @@ const metadata = {
   <Content
     items={[
       {
-        title: 'Description:',
+        title: 'Versatility:',
         description: `Experience true cross-platform deployment with Moly. Built with Rust and the Makepad framework, the same codebase runs natively on desktop (macOS, Linux, Windows), in web browsers, and on mobile devices. No compromises on performance or user experience across platforms.`,
       },
       {
@@ -222,7 +247,7 @@ const metadata = {
   >
     <Fragment slot="content">
       <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Cross-Platform Excellence: <br /><span class="text-2xl">One app, everywhere</span>
+        Cross-Platform Deployment: <br /><span class="text-2xl">One app, everywhere</span>
       </h3>
     </Fragment>
 
@@ -231,69 +256,35 @@ const metadata = {
     </Fragment>
   </Content>
 
-  <!-- Pricing Widget ******************* -->
-
-  <Pricing
-    title="Get Moly AI Today"
-    prices={[
-      {
-        title: 'Open Source',
-        subtitle: 'Free forever with full access to all features',
-        price: '0',
-        period: '/ forever',
-        callToAction: {
-          target: '_blank',
-          text: 'Download Now',
-          href: 'https://github.com/moxin-org/moly/releases',
-        },
-      },
-      {
-        title: 'Build from Source',
-        subtitle: 'Get the latest features and contribute to development',
-        price: 'Free',
-        period: '/ open source',
-        callToAction: {
-          target: '_blank',
-          text: 'View on GitHub',
-          href: 'https://github.com/moxin-org/moly',
-        },
-        hasRibbon: true,
-        ribbonTitle: 'developers',
-      },
-      {
-        title: 'MolyKit Framework',
-        subtitle: 'Build your own AI applications with our toolkit',
-        price: 'Free',
-        period: '/ Apache 2.0',
-        callToAction: {
-          target: '_blank',
-          text: 'Read Documentation',
-          href: 'https://moxin-org.github.io/moly/',
-        },
-      },
-    ]}
-  />
+  <CallToAction
+    id="download"
+    title="Download our app now!"
+    subtitle="Access a variety of stunning templates, simplify your creative process, and elevate your online presence."
+  >
+    <div slot="actions" class="flex max-w-sm gap-4"></div>
+  </CallToAction>
 
   <!-- FAQs Widget ******************* -->
 
   <FAQs
+    id="faqs"
     title="Frequently Asked Questions"
     items={[
       {
-        title: 'What platforms does Moly AI support?',
+        title: 'What platforms does Moly App support?',
         description:
-          'Moly AI runs natively on macOS, Linux, and Windows. It also works in web browsers and has experimental support for Android and iOS. All platforms share the same codebase and feature set.',
+          'Moly App runs natively on macOS, Linux, and Windows. It also works in web browsers and has experimental support for Android and iOS. All platforms share the same codebase and feature set.',
         icon: 'tabler:chevrons-right',
       },
       {
-        title: 'Can I use Moly AI with local models for privacy?',
-        description: `Absolutely! Moly AI supports local model execution through Moly Server. You can download and run open-source models like Llama, Mistral, and others entirely on your machine without sending data to external servers.`,
+        title: 'Can I use Moly App with local models for privacy?',
+        description: `Absolutely! Moly App supports local model execution through Moly Server. You can download and run open-source models like Llama, Mistral, and others entirely on your machine without sending data to external servers.`,
         icon: 'tabler:chevrons-right',
       },
       {
-        title: 'Is Moly AI really free and open source?',
+        title: 'Is Moly App really free and open source?',
         description:
-          'Yes, Moly AI is completely free and licensed under Apache 2.0. You can use it for personal and commercial purposes, modify the source code, and contribute to the project. There are no hidden costs or premium features.',
+          'Yes, Moly App is completely free and licensed under Apache 2.0. You can use it for personal and commercial purposes, modify the source code, and contribute to the project. There are no hidden costs or premium features.',
         icon: 'tabler:chevrons-right',
       },
       {
@@ -312,10 +303,10 @@ const metadata = {
 
   <Steps2
     title="Get Help & Connect"
-    subtitle="Need assistance or want to contribute? Connect with the Moly AI community!"
+    subtitle="Need assistance or want to contribute? Connect with the Moly App community!"
     callToAction={{
-      text: 'Join the community',
-      href: 'https://github.com/moxin-org/moly/discussions',
+      text: 'Join the Discord',
+      href: 'https://discord.gg/g2S5ESMz4Q',
     }}
     items={[
       {
@@ -330,7 +321,7 @@ const metadata = {
       },
       {
         title: 'Contribute',
-        description: 'Help improve Moly AI',
+        description: 'Help improve Moly App',
         icon: 'tabler:git-branch',
       },
     ]}
@@ -338,13 +329,17 @@ const metadata = {
 
   <!-- BlogLatestPost Widget **************** -->
 
+  <!--
+
   <BlogLatestPosts
     id="blog"
-    title="Stay updated with Moly AI"
-    information={`Explore our collection of articles about AI development, local models, cross-platform development with Rust, and the latest features in Moly AI.`}
+    title="Stay updated with Moly App"
+    information={`Explore our collection of articles about AI development, local models, cross-platform development with Rust, and the latest features in Moly App.`}
   >
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </BlogLatestPosts>
+
+  -->
 </Layout>
