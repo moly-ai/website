@@ -1,0 +1,404 @@
+---
+import '~/assets/styles/scrolling-tags.css';
+
+export interface Props {
+  uniqueTags: string[];
+}
+
+const { uniqueTags } = Astro.props;
+
+// Duplicate tags multiple times to ensure we have enough for 5 rows
+const duplicatedTags = [...uniqueTags, ...uniqueTags, ...uniqueTags, ...uniqueTags, ...uniqueTags];
+const tagsPerRow = Math.ceil(duplicatedTags.length / 5);
+const tagRows = Array.from({ length: 5 }, (_, i) =>
+  duplicatedTags.slice(i * tagsPerRow, (i + 1) * tagsPerRow).filter(Boolean),
+);
+---
+
+<div
+  id="scrolling-tags"
+  class="tags-bg absolute inset-0 opacity-0 transition-opacity duration-1000 pointer-events-none"
+>
+  {
+    tagRows.map((row, index) => (
+      <div
+        class="tag-row flex h-1/5 items-center overflow-hidden"
+        data-mask={index >= 1 && index <= 3 ? 'true' : 'false'}
+      >
+        <div
+          class="tag-track flex gap-4 flex-nowrap"
+          data-tags={row.join(',')}
+        />
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  const ANIMATION_CONFIG = {
+    TAG_GAP: 16,
+    SPEED_PX_PER_SECOND: 120,
+    MASK_OFFSET: 10,
+    MASK_BLUR: 4,
+    HOVER_DELAY: 150,
+    CONTAINER_MULTIPLIER: 2,
+  };
+
+  const tagToTrackMap = new WeakMap<HTMLElement, HTMLElement>();
+  const trackTimelines = new WeakMap<HTMLElement, { animation: Animation | null }>();
+  const singleSetWidths = new WeakMap<HTMLElement, number>();
+  const trackEventsDelegated = new WeakSet<HTMLElement>();
+  const trackHoverStates = new WeakMap<HTMLElement, boolean>();
+  const trackHoverTimeouts = new WeakMap<HTMLElement, ReturnType<typeof setTimeout>>();
+
+  type DOMCacheShape = {
+    container: HTMLElement | null;
+    tracks: HTMLElement[];
+    tagRows: HTMLElement[];
+    heroSection: HTMLElement | null;
+    titleElement: HTMLElement | null;
+    isInitialized: boolean;
+    init: () => void;
+    refreshDynamicElements: () => void;
+    getTracks: () => HTMLElement[];
+    getTagRows: () => HTMLElement[];
+    getContainer: () => HTMLElement | null;
+    getHeroElements: () => {
+      section: HTMLElement | null;
+      title: HTMLElement | null;
+    };
+  };
+
+  const DOMCache: DOMCacheShape = {
+    container: null,
+    tracks: [],
+    tagRows: [],
+    heroSection: null,
+    titleElement: null,
+    isInitialized: false,
+
+    init() {
+      if (this.isInitialized) return;
+
+      this.container = document.getElementById('scrolling-tags');
+      const section = document.querySelector('section');
+      this.heroSection = section instanceof HTMLElement ? section : null;
+      const preferredTitle = this.heroSection?.querySelector('#mona-text');
+      const fallbackTitle = this.heroSection?.querySelector('.text-center');
+      this.titleElement =
+        preferredTitle instanceof HTMLElement
+          ? preferredTitle
+          : fallbackTitle instanceof HTMLElement
+            ? fallbackTitle
+            : null;
+
+      this.isInitialized = true;
+    },
+
+    refreshDynamicElements() {
+      this.tracks = Array.from(
+        document.querySelectorAll<HTMLElement>('.tag-track')
+      );
+      this.tagRows = Array.from(
+        document.querySelectorAll<HTMLElement>('.tag-row')
+      );
+    },
+
+    getTracks() {
+      return this.tracks;
+    },
+
+    getTagRows() {
+      return this.tagRows;
+    },
+
+    getContainer() {
+      return this.container;
+    },
+
+    getHeroElements() {
+      return {
+        section: this.heroSection,
+        title: this.titleElement,
+      };
+    },
+  };
+
+  function createTagNode(text: string, track: HTMLElement) {
+    const div = document.createElement('div');
+    div.className =
+      'tag px-4 py-2 rounded-full font-semibold text-white text-base flex-shrink-0 backdrop-blur-md bg-white/15';
+    div.textContent = text;
+
+    tagToTrackMap.set(div, track);
+    div.dataset.tagText = text;
+
+    return div;
+  }
+
+  function isHTMLElement(target: unknown): target is HTMLElement {
+    return target instanceof HTMLElement;
+  }
+
+  function setupEventDelegation(track: HTMLElement) {
+    if (trackEventsDelegated.has(track)) return;
+
+    track.addEventListener('mouseenter', () => {
+      const existingTimeout = trackHoverTimeouts.get(track);
+      if (existingTimeout) {
+        clearTimeout(existingTimeout);
+        trackHoverTimeouts.delete(track);
+      }
+
+      trackHoverStates.set(track, true);
+      const timeline = trackTimelines.get(track);
+      if (timeline?.animation) {
+        timeline.animation.pause();
+      }
+    });
+
+    track.addEventListener('mouseleave', () => {
+      trackHoverStates.set(track, false);
+
+      const timeoutId = setTimeout(() => {
+        if (!trackHoverStates.get(track)) {
+          const timeline = trackTimelines.get(track);
+          if (timeline?.animation) {
+            timeline.animation.play();
+          }
+        }
+        trackHoverTimeouts.delete(track);
+      }, ANIMATION_CONFIG.HOVER_DELAY);
+
+      trackHoverTimeouts.set(track, timeoutId);
+    });
+
+    track.addEventListener(
+      'mouseenter',
+      (e: Event) => {
+        const target = e.target;
+        if (isHTMLElement(target) && target.classList.contains('tag')) {
+          target.classList.add('tag-hovered');
+        }
+      },
+      true
+    );
+
+    track.addEventListener(
+      'mouseleave',
+      (e: Event) => {
+        const target = e.target;
+        if (isHTMLElement(target) && target.classList.contains('tag')) {
+          target.classList.remove('tag-hovered');
+        }
+      },
+      true
+    );
+
+    trackEventsDelegated.add(track);
+  }
+
+  function updateMasks() {
+    const { section: hero, title } = DOMCache.getHeroElements();
+    if (!hero || !title) return;
+
+    const elements: HTMLElement[] = [];
+    const heading = title.querySelector('h1');
+    if (isHTMLElement(heading)) {
+      elements.push(heading);
+    }
+    const paragraph = title.querySelector('p');
+    if (isHTMLElement(paragraph)) {
+      elements.push(paragraph);
+    }
+    const vw = window.innerWidth;
+
+    const bounds = elements.reduce(
+      (acc, el) => {
+        const rect = el.getBoundingClientRect();
+        return {
+          left: Math.min(acc.left, rect.left),
+          right: Math.max(acc.right, rect.right),
+        };
+      },
+      { left: vw, right: 0 }
+    );
+
+    const leftPercent = Math.max(
+      0,
+      (bounds.left / vw) * 100 - ANIMATION_CONFIG.MASK_OFFSET
+    );
+    const rightPercent = Math.min(
+      100,
+      (bounds.right / vw) * 100 + ANIMATION_CONFIG.MASK_OFFSET
+    );
+
+    const gradient = `linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) ${leftPercent - ANIMATION_CONFIG.MASK_BLUR}%, rgba(0,0,0,0) ${rightPercent + ANIMATION_CONFIG.MASK_BLUR}%, rgba(0,0,0,1) 100%)`;
+
+    DOMCache.getTagRows().forEach((row: HTMLElement) => {
+      const maskProperties =
+        row.dataset.mask === 'true'
+          ? {
+              '-webkit-mask-image': gradient,
+              'mask-image': gradient,
+              '-webkit-mask-size': '100vw 100%',
+              'mask-size': '100vw 100%',
+              '-webkit-mask-repeat': 'no-repeat',
+              'mask-repeat': 'no-repeat',
+              '-webkit-mask-position': 'left top',
+              'mask-position': 'left top',
+            }
+          : {
+              '-webkit-mask-image': 'none',
+              'mask-image': 'none',
+            };
+
+      Object.entries(maskProperties).forEach(([prop, value]) => {
+        row.style.setProperty(prop, value);
+      });
+      row.classList.remove('masked-row');
+    });
+  }
+
+  function prepareTags() {
+    DOMCache.refreshDynamicElements();
+    DOMCache.getTracks().forEach((track, index) => {
+      track.innerHTML = '';
+      const tags =
+        track.dataset.tags
+          ?.split(',')
+          .map((t: string) => t.trim())
+          .filter(Boolean) || [];
+
+      if (tags.length === 0) return;
+
+      const containerWidth = window.innerWidth;
+      let totalWidth = 0;
+      let singleSetWidth = 0;
+      let firstSetComplete = false;
+
+      while (
+        totalWidth <
+        containerWidth * ANIMATION_CONFIG.CONTAINER_MULTIPLIER
+      ) {
+        const fragment = document.createDocumentFragment();
+        const batchNodes = [];
+
+        for (const tagText of tags) {
+          const node = createTagNode(tagText, track);
+          fragment.appendChild(node);
+          batchNodes.push(node);
+        }
+
+        track.appendChild(fragment);
+
+        for (const node of batchNodes) {
+          const nodeWidth = node.offsetWidth + ANIMATION_CONFIG.TAG_GAP;
+          totalWidth += nodeWidth;
+
+          if (!firstSetComplete) {
+            singleSetWidth += nodeWidth;
+          }
+        }
+
+        if (!firstSetComplete) {
+          firstSetComplete = true;
+          singleSetWidths.set(track, singleSetWidth);
+        }
+      }
+
+      const direction = index % 2 === 0 ? 'rtl' : 'ltr';
+      track.dataset.direction = direction;
+
+      setupEventDelegation(track);
+
+      track.style.willChange = 'transform';
+    });
+  }
+
+  function startAnimation() {
+    DOMCache.getTracks().forEach((track, index) => {
+      const singleSetWidth = singleSetWidths.get(track);
+      if (!singleSetWidth) return;
+
+      const direction = index % 2 === 0 ? 'rtl' : 'ltr';
+      const duration = (singleSetWidth / ANIMATION_CONFIG.SPEED_PX_PER_SECOND) * 1000;
+
+      const existingTimeline = trackTimelines.get(track);
+      if (existingTimeline?.animation) {
+        existingTimeline.animation.cancel();
+      }
+
+      if (direction === 'ltr') {
+        const animation = track.animate(
+          [
+            { transform: `translateX(-${singleSetWidth}px)` },
+            { transform: 'translateX(0px)' },
+          ],
+          {
+            duration,
+            iterations: Infinity,
+            easing: 'linear',
+          }
+        );
+        trackTimelines.set(track, { animation });
+      } else {
+        const animation = track.animate(
+          [
+            { transform: 'translateX(0px)' },
+            { transform: `translateX(-${singleSetWidth}px)` },
+          ],
+          {
+            duration,
+            iterations: Infinity,
+            easing: 'linear',
+          }
+        );
+        trackTimelines.set(track, { animation });
+      }
+    });
+  }
+
+  function cleanupScrollingTags() {
+    DOMCache.getTracks().forEach((track) => {
+      const timeline = trackTimelines.get(track);
+      if (timeline?.animation) {
+        timeline.animation.cancel();
+        trackTimelines.delete(track);
+      }
+      singleSetWidths.delete(track);
+
+      const trackTimeout = trackHoverTimeouts.get(track);
+      if (trackTimeout) {
+        clearTimeout(trackTimeout);
+        trackHoverTimeouts.delete(track);
+      }
+      trackHoverStates.delete(track);
+    });
+
+    DOMCache.container = null;
+    DOMCache.tracks = [];
+    DOMCache.tagRows = [];
+    DOMCache.heroSection = null;
+    DOMCache.titleElement = null;
+    DOMCache.isInitialized = false;
+  }
+
+  document.addEventListener('start-tags', () => {
+    DOMCache.init();
+    const tagsContainer = DOMCache.getContainer();
+    if (!tagsContainer) return;
+
+    tagsContainer.style.opacity = '0.5';
+    prepareTags();
+    updateMasks();
+    startAnimation();
+  });
+
+  window.addEventListener('resize', () => {
+    updateMasks();
+    startAnimation();
+  });
+
+  window.addEventListener('beforeunload', cleanupScrollingTags);
+</script>
