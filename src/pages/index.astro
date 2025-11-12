@@ -3,7 +3,9 @@ import Layout from '~/layouts/PageLayout.astro';
 
 import Header from '~/components/widgets/Header.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import AdvancedHero from '~/components/widgets/AdvancedHero.astro';
 import Features from '~/components/widgets/Features.astro';
+import AdvancedFeatures from '~/components/widgets/AdvancedFeatures.astro';
 import Steps2 from '~/components/widgets/Steps2.astro';
 import Content from '~/components/widgets/Content.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
@@ -11,6 +13,7 @@ import Button from '~/components/ui/Button.astro';
 
 import FAQs from '~/components/widgets/FAQs.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import { initAnimations } from '~/utils/scrollAnimations.js';
 
 // Import video and poster image
 import molyDemoVideo from '~/assets/videos/moly-chat-demo.mov';
@@ -54,7 +57,19 @@ const metadata = {
 
   <!-- Hero2 Widget ******************* -->
 
-  <Hero
+  <AdvancedHero
+    enableAnimatedBackground={true}
+    enableScrollingTags={true}
+    tags={[
+      { text: 'Rust', icon: '🦀' },
+      { text: 'Cross-Platform', icon: '🌐' },
+      { text: 'AI Voice Chat', icon: '🎤' },
+      { text: 'Local LLMs', icon: '🏠' },
+      { text: 'Open Source', icon: '⭐' },
+      { text: 'Privacy First', icon: '🔒' },
+      { text: 'Makepad', icon: '🎨' },
+      { text: 'Real-time', icon: '⚡' },
+    ]}
     tagline="Open-Source • AI • LLM • Voice • Chat • Client"
     actions={[
       {
@@ -81,53 +96,73 @@ const metadata = {
 
     <Fragment slot="image">
       <div class="relative m-auto max-w-5xl">
-        <video class="mx-auto rounded-md w-full" autoplay muted loop playsinline poster={heroPosterImage.src}>
+        <video class="mx-auto rounded-xl w-full" autoplay muted loop playsinline poster={heroPosterImage.src}>
           <source src={molyDemoVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
     </Fragment>
-  </Hero>
+  </AdvancedHero>
 
-  <!-- Features Widget *************** -->
+  <!-- Advanced Features Widget *************** -->
 
-  <Features
+  <AdvancedFeatures
     id="features"
     title="What is Moly App?"
     subtitle="Discover the powerful features that make Moly the ultimate AI LLM client."
-    columns={2}
+    columns={3}
+    cardTheme="glassmorphism"
+    enableAnimation={true}
     items={[
       {
         title: 'Cross-Platform Compatibility',
         description:
-          'Built with Rust and Makepad, Moly runs natively on macOS, Linux, Windows, and eventually on iOS, Android and in your web browser. One app, everywhere you need it.',
+          'Built with Rust and Makepad, Moly runs natively on macOS, Linux, Windows, and eventually on iOS, Android and in your web browser.',
         icon: 'tabler:device-desktop',
+        theme: 'nebula',
+        backContent: 'Experience seamless AI interaction across all your devices. Native performance, consistent interface, and synchronized conversations everywhere.',
+        flip: true,
       },
       {
         title: 'Local and Remote LLM Support',
-        description: `Connect to OpenAI, Anthropic, and other cloud providers, or run models locally with Moly Server. Complete privacy and flexibility in one package.`,
+        description: `Connect to OpenAI, Anthropic, and other cloud providers, or run models locally with Moly Server. Complete privacy and flexibility.`,
         icon: 'tabler:cloud-computing',
+        theme: 'solar',
+        backContent: 'Choose from cutting-edge cloud models or run open-source models locally. Switch between providers seamlessly without losing context.',
+        flip: true,
       },
       {
         title: 'Lightning Fast Performance',
         description:
-          'Built in Rust for maximum performance and memory safety. Experience instant responses and smooth interactions even with large language models.',
+          'Built in Rust for maximum performance and memory safety. Experience instant responses and smooth interactions.',
         icon: 'tabler:rocket',
+        theme: 'cosmic',
+        backContent: 'Blazing fast inference speeds, optimized memory usage, and native performance. Handle complex conversations without breaking a sweat.',
+        flip: true,
       },
       {
         title: 'Open Source & Extensible',
-        description: `Fully open source with Apache 2.0 license. Extend functionality with MolyKit, contribute to the project, or build your own AI applications on top of the framework.`,
+        description: `Fully open source with Apache 2.0 license. Extend functionality with MolyKit and build custom AI applications.`,
         icon: 'tabler:code',
+        theme: 'vintage',
+        backContent: 'Join our open-source community. Contribute to the project, extend functionality, or build your own AI-powered applications using our framework.',
+        flip: true,
       },
       {
         title: 'Privacy-First Design',
-        description: `Your conversations stay private. Use local models for complete privacy or choose cloud providers while maintaining control over your data.`,
+        description: `Your conversations stay private. Use local models for complete privacy or choose cloud providers securely.`,
         icon: 'tabler:shield-lock',
+        theme: 'fresh-nature',
+        backContent: 'Complete data sovereignty with local models. End-to-end encryption for cloud conversations. You own your data, always.',
+        flip: true,
       },
       {
         title: 'AI Agent Integration',
-        description: `Connect to MoFa servers to interact with AI agents. Build and deploy custom AI workflows using templates and the Dora framework.`,
+        description: `Connect to MoFa servers to interact with AI agents. Build and deploy custom AI workflows and automation.`,
         icon: 'tabler:robot',
+        theme: 'default',
+        backContent: 'Deploy custom AI agents, create automated workflows, and integrate with external services. Build sophisticated AI-powered solutions.',
+        flip: true,
       },
     ]}
   />
@@ -343,3 +378,15 @@ const metadata = {
 
   -->
 </Layout>
+
+<script>
+  // Initialize scroll animations when the page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    // Import and initialize animations
+    import('../utils/scrollAnimations.js').then(module => {
+      module.initAnimations();
+    }).catch(err => {
+      console.warn('Could not load scroll animations:', err);
+    });
+  });
+</script>

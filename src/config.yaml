@@ -11,7 +11,7 @@ metadata:
   title:
     default: Moly AI App
     template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+  description: "\U0001F680 Moly AI App Homepage; landing page, marketing, blog, index"
   robots:
     index: true
     follow: true

@@ -1,0 +1,61 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import AdvancedCard from '~/components/ui/AdvancedCard.astro';
+import Headline from '~/components/ui/Headline.astro';
+import type { Features as Props } from '~/types';
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline = await Astro.slots.render('tagline'),
+  items = [],
+  columns = 3,
+  cardTheme = 'default',
+  enableFlip = false,
+  enableAnimation = true,
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+
+const gridCols = {
+  1: 'grid-cols-1',
+  2: 'md:grid-cols-2',
+  3: 'lg:grid-cols-3 md:grid-cols-2',
+  4: 'lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2',
+  5: 'lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2',
+  6: 'lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2',
+};
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} classes={classes?.headline as Record<string, string>} />
+
+  {items && items.length > 0 && (
+    <div class={`grid gap-6 md:gap-8 ${gridCols[columns] || gridCols[3]}`}>
+      {items.map((item, index) => (
+        <AdvancedCard
+          title={item.title}
+          description={item.description}
+          icon={item.icon}
+          theme={item.theme || cardTheme}
+          flip={item.flip || enableFlip}
+          backContent={item.backContent}
+          callToAction={item.callToAction}
+          classes={item.classes}
+          isAnimated={enableAnimation}
+          delay={index * 100}
+        />
+      ))}
+    </div>
+  )}
+</WidgetWrapper>
+
+<style>
+  /* Add smooth scroll behavior for animation triggers */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
