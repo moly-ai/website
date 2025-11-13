@@ -17,13 +17,15 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
 
 <div
   id="scrolling-tags"
-  class="tags-bg absolute inset-0 opacity-0 transition-opacity duration-1000 pointer-events-none"
+  class="tags-bg absolute inset-0 transition-opacity duration-1000 pointer-events-none z-0 pt-20"
+  style="opacity: 0;"
 >
   {
     tagRows.map((row, index) => (
       <div
         class="tag-row flex h-1/5 items-center overflow-hidden"
         data-mask={index >= 1 && index <= 3 ? 'true' : 'false'}
+        data-row-index={index}
       >
         <div
           class="tag-track flex gap-4 flex-nowrap"
@@ -38,8 +40,8 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
   const ANIMATION_CONFIG = {
     TAG_GAP: 16,
     SPEED_PX_PER_SECOND: 120,
-    MASK_OFFSET: 10,
-    MASK_BLUR: 4,
+    MASK_OFFSET: 6,
+    MASK_BLUR: 12,
     HOVER_DELAY: 150,
     CONTAINER_MULTIPLIER: 2,
   };
@@ -127,7 +129,7 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
   function createTagNode(text: string, track: HTMLElement) {
     const div = document.createElement('div');
     div.className =
-      'tag px-4 py-2 rounded-full font-semibold text-white text-base flex-shrink-0 backdrop-blur-md bg-white/15';
+      'tag px-3 py-1.5 rounded-full font-medium text-white text-sm flex-shrink-0 backdrop-blur-md bg-white/15';
     div.textContent = text;
 
     tagToTrackMap.set(div, track);
@@ -233,7 +235,7 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
       (bounds.right / vw) * 100 + ANIMATION_CONFIG.MASK_OFFSET
     );
 
-    const gradient = `linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) ${leftPercent - ANIMATION_CONFIG.MASK_BLUR}%, rgba(0,0,0,0) ${rightPercent + ANIMATION_CONFIG.MASK_BLUR}%, rgba(0,0,0,1) 100%)`;
+    const gradient = `linear-gradient(to right, black 0%, black ${Math.max(0, leftPercent - ANIMATION_CONFIG.MASK_BLUR)}%, transparent ${leftPercent}%, transparent ${rightPercent}%, black ${Math.min(100, rightPercent + ANIMATION_CONFIG.MASK_BLUR)}%, black 100%)`;
 
     DOMCache.getTagRows().forEach((row: HTMLElement) => {
       const maskProperties =
@@ -387,12 +389,16 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
   document.addEventListener('start-tags', () => {
     DOMCache.init();
     const tagsContainer = DOMCache.getContainer();
-    if (!tagsContainer) return;
+    if (!tagsContainer) {
+      return;
+    }
 
-    tagsContainer.style.opacity = '0.5';
     prepareTags();
     updateMasks();
     startAnimation();
+
+    // Fade in the tags
+    tagsContainer.style.opacity = '0.7';
   });
 
   window.addEventListener('resize', () => {
