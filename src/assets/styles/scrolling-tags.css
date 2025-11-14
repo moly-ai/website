@@ -43,6 +43,11 @@
   border-color: hsl(var(--primary) / 0.6);
 }
 
+/* Reduce vertical spacing between tag rows by 10% */
+.tags-bg .tag-row {
+  height: 18% !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tags-bg .tag {
     transition: none;
