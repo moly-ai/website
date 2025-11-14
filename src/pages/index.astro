@@ -30,7 +30,6 @@ const metadata = {
       position="left"
       links={[
         { text: 'Features', href: '#features' },
-        { text: 'Use Cases', href: '#use-cases' },
         { text: 'FAQs', href: '#faqs' },
       ]}
       isSticky
@@ -66,7 +65,6 @@ const metadata = {
       { text: 'AI Voice Chat', icon: '🎤' },
       { text: 'Local LLMs', icon: '🏠' },
       { text: 'Open Source', icon: '⭐' },
-      { text: 'Privacy First', icon: '🔒' },
       { text: 'Makepad', icon: '🎨' },
       { text: 'Real-time', icon: '⚡' },
     ]}
@@ -107,7 +105,8 @@ const metadata = {
           'Built with Rust and Makepad, Moly runs natively on macOS, Linux, Windows, and eventually on iOS, Android and in your web browser.',
         icon: 'tabler:device-desktop',
         theme: 'nebula',
-        backContent: 'Experience seamless AI interaction across all your devices. Native performance, consistent interface, and synchronized conversations everywhere.',
+        backContent:
+          'Experience seamless AI interaction across all your devices. Native performance, consistent interface, and synchronized conversations everywhere.',
         flip: true,
       },
       {
@@ -115,7 +114,8 @@ const metadata = {
         description: `Connect to OpenAI, Anthropic, and other cloud providers, or run models locally with Moly Server. Complete privacy and flexibility.`,
         icon: 'tabler:cloud-computing',
         theme: 'solar',
-        backContent: 'Choose from cutting-edge cloud models or run open-source models locally. Switch between providers seamlessly without losing context.',
+        backContent:
+          'Choose from cutting-edge cloud models or run open-source models locally. Switch between providers seamlessly without losing context.',
         flip: true,
       },
       {
@@ -124,7 +124,8 @@ const metadata = {
           'Built in Rust for maximum performance and memory safety. Experience instant responses and smooth interactions.',
         icon: 'tabler:rocket',
         theme: 'cosmic',
-        backContent: 'Blazing fast inference speeds, optimized memory usage, and native performance. Handle complex conversations without breaking a sweat.',
+        backContent:
+          'Blazing fast inference speeds, optimized memory usage, and native performance. Handle complex conversations without breaking a sweat.',
         flip: true,
       },
       {
@@ -132,7 +133,8 @@ const metadata = {
         description: `Fully open source with Apache 2.0 license. Extend functionality with MolyKit and build custom AI applications.`,
         icon: 'tabler:code',
         theme: 'vintage',
-        backContent: 'Join our open-source community. Contribute to the project, extend functionality, or build your own AI-powered applications using our framework.',
+        backContent:
+          'Join our open-source community. Contribute to the project, extend functionality, or build your own AI-powered applications using our framework.',
         flip: true,
       },
       {
@@ -140,7 +142,8 @@ const metadata = {
         description: `Your conversations stay private. Use local models for complete privacy or choose cloud providers securely.`,
         icon: 'tabler:shield-lock',
         theme: 'fresh-nature',
-        backContent: 'Complete data sovereignty with local models. End-to-end encryption for cloud conversations. You own your data, always.',
+        backContent:
+          'Complete data sovereignty with local models. End-to-end encryption for cloud conversations. You own your data, always.',
         flip: true,
       },
       {
@@ -148,8 +151,12 @@ const metadata = {
         description: `Connect to MoFa servers to interact with AI agents. Build and deploy custom AI workflows and automation.`,
         icon: 'tabler:robot',
         theme: 'default',
-        backContent: 'Deploy custom AI agents, create automated workflows, and integrate with external services. Build sophisticated AI-powered solutions.',
+        backContent:
+          'Deploy custom AI agents, create automated workflows, and integrate with external services. Build sophisticated AI-powered solutions.',
         flip: true,
+        classes: {
+          container: 'bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
+        },
       },
     ]}
   />
@@ -160,7 +167,9 @@ const metadata = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-8">
         <h2 class="text-3xl md:text-4xl font-bold mb-4 dark:text-white">See Moly in Action</h2>
-        <p class="text-lg text-muted dark:text-slate-300">Watch how Moly App makes AI interactions seamless and intuitive</p>
+        <p class="text-lg text-muted dark:text-slate-300">
+          Watch how Moly App makes AI interactions seamless and intuitive
+        </p>
       </div>
       <div class="relative m-auto max-w-5xl">
         <div class="relative rounded-2xl overflow-hidden shadow-2xl">
@@ -174,7 +183,7 @@ const metadata = {
   </section>
 
   <!-- Content Widget **************** -->
-
+  <!-- Use Cases Section - Temporarily Disabled
   <Content
     id="use-cases"
     title="Use cases"
@@ -206,9 +215,10 @@ const metadata = {
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
+-->
 
   <!-- Content Widget **************** -->
-
+  <!--
   <Content
     isAfterContent={true}
     items={[
@@ -236,9 +246,9 @@ const metadata = {
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
-
+ -->
   <!-- Content Widget **************** -->
-
+  <!-- For Researchers Section - Temporarily Disabled
   <Content
     isReversed
     isAfterContent={true}
@@ -267,9 +277,10 @@ const metadata = {
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
+-->
 
   <!-- Content Widget **************** -->
-
+  <!-- Cross-Platform Deployment Section - Temporarily Disabled
   <Content
     items={[
       {
@@ -296,6 +307,7 @@ const metadata = {
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
+-->
 
   <CallToAction
     id="download"
@@ -389,10 +401,12 @@ const metadata = {
   // Initialize scroll animations when the page loads
   document.addEventListener('DOMContentLoaded', () => {
     // Import and initialize animations
-    import('../utils/scrollAnimations.js').then(module => {
-      module.initAnimations();
-    }).catch(err => {
-      console.warn('Could not load scroll animations:', err);
-    });
+    import('../utils/scrollAnimations.js')
+      .then((module) => {
+        module.initAnimations();
+      })
+      .catch((err) => {
+        console.warn('Could not load scroll animations:', err);
+      });
   });
 </script>

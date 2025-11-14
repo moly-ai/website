@@ -320,6 +320,40 @@ span.text-accent::after {
   content: none !important;
 }
 
+/* Custom theme colors for AdvancedCard component */
+:root {
+  --nebula: #ddd6fe; /* Light Indigo */
+  --tea-secondary: #bbf7d0; /* Light Emerald */
+  --solar: #fed7aa; /* Light Amber */
+  --cosmic: #e9d5ff; /* Light Violet */
+}
+
+/* Dark mode adjustments for custom colors */
+.dark {
+  --nebula: #4c1d95; /* Dark Indigo */
+  --tea-secondary: #064e3b; /* Dark Emerald */
+  --solar: #92400e; /* Dark Amber */
+  --cosmic: #581c87; /* Dark Violet */
+}
+
+/* Glass morphism effect utility classes */
+.glass-card {
+  @apply bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/10;
+}
+
+/* Card theme backgrounds */
+.nebula-theme {
+  background: linear-gradient(135deg, var(--nebula), var(--tea-secondary));
+}
+
+.solar-theme {
+  background: linear-gradient(135deg, var(--solar), #f59e0b);
+}
+
+.cosmic-theme {
+  background: linear-gradient(135deg, var(--cosmic), #7c3aed);
+}
+
 /* To deprecated */
 
 .dd *:first-child {
