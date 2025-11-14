@@ -29,6 +29,19 @@
     @apply btn font-semibold bg-primary text-white border-primary hover:bg-secondary hover:border-secondary hover:text-white dark:text-white dark:bg-primary dark:border-primary dark:hover:border-secondary dark:hover:bg-secondary;
   }
 
+  /* Override primary button colors for better visibility in light theme */
+  .btn-primary {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #1e40af 100%) !important;
+    border-color: #1e40af !important;
+    box-shadow: 0 4px 14px rgba(30, 64, 175, 0.4) !important;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #1d4ed8 100%) !important;
+    border-color: #1d4ed8 !important;
+    box-shadow: 0 6px 20px rgba(29, 78, 216, 0.5) !important;
+  }
+
   .btn-secondary {
     @apply btn;
   }
