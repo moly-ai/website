@@ -296,6 +296,30 @@
   @apply rotate-45 translate-y-[-8px] translate-x-[14px];
 }
 
+/* Global text-accent styles - remove any borders, underlines, shadows */
+.text-accent,
+span.text-accent,
+.text-accent *,
+h1 .text-accent,
+h2 .text-accent,
+h3 .text-accent,
+p .text-accent {
+  border: none !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  background-image: none !important;
+}
+
+.text-accent::before,
+.text-accent::after,
+span.text-accent::before,
+span.text-accent::after {
+  display: none !important;
+  content: none !important;
+}
+
 /* To deprecated */
 
 .dd *:first-child {
