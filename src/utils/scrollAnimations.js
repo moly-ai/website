@@ -62,33 +62,6 @@ export function initParallaxEffects() {
   function updateParallax() {
     const scrolled = window.pageYOffset;
     const parallaxElements = document.querySelectorAll('.parallax-element');
-
-    parallaxElements.forEach((element) => {
-      const speed = element.dataset.speed || 0.5;
-      const yPos = -(scrolled * speed);
-      element.style.transform = `translateY(${yPos}px)`;
-    });
-
-    ticking = false;
-  }
-
-  function requestTick() {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
-  }
-
-  window.addEventListener('scroll', requestTick);
-}
-
-// Parallax scrolling effect for hero background
-export function initParallaxEffects() {
-  let ticking = false;
-
-  function updateParallax() {
-    const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll('.parallax-element');
     const heroOrbs = document.querySelectorAll('.animate-float');
 
     parallaxElements.forEach((element) => {
