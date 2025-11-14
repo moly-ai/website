@@ -197,7 +197,8 @@ import '@fontsource-variable/inter';
     color: var(--aw-color-accent);
   }
 
-  a::after {
+  /* Exclude button-style links from animated underline effect */
+  a:not([class*="btn"]):not([class*="inline-flex"])::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -208,7 +209,7 @@ import '@fontsource-variable/inter';
     transition: width 0.3s ease;
   }
 
-  a:hover::after {
+  a:not([class*="btn"]):not([class*="inline-flex"]):hover::after {
     width: 100%;
   }
 </style>

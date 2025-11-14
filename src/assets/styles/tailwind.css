@@ -29,17 +29,30 @@
     @apply btn font-semibold bg-primary text-white border-primary hover:bg-secondary hover:border-secondary hover:text-white dark:text-white dark:bg-primary dark:border-primary dark:hover:border-secondary dark:hover:bg-secondary;
   }
 
-  /* Override primary button colors for better visibility in light theme */
+  /* Override primary button colors to green theme */
   .btn-primary {
-    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #1e40af 100%) !important;
-    border-color: #1e40af !important;
-    box-shadow: 0 4px 14px rgba(30, 64, 175, 0.4) !important;
+    background: linear-gradient(135deg, #22c55e 0%, #4ade80 50%, #22c55e 100%) !important;
+    border-color: #22c55e !important;
+    box-shadow: 0 4px 14px rgba(74, 222, 128, 0.4) !important;
   }
 
   .btn-primary:hover {
-    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #1d4ed8 100%) !important;
-    border-color: #1d4ed8 !important;
-    box-shadow: 0 6px 20px rgba(29, 78, 216, 0.5) !important;
+    background: linear-gradient(135deg, #4ade80 0%, #86efac 50%, #4ade80 100%) !important;
+    border-color: #4ade80 !important;
+    box-shadow: 0 6px 20px rgba(74, 222, 128, 0.5) !important;
+  }
+
+  /* Dark mode green theme for primary buttons */
+  .dark .btn-primary {
+    background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #15803d 100%) !important;
+    border-color: #15803d !important;
+    box-shadow: 0 4px 14px rgba(21, 128, 61, 0.4) !important;
+  }
+
+  .dark .btn-primary:hover {
+    background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #15803d 100%) !important;
+    border-color: #16a34a !important;
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5) !important;
   }
 
   .btn-secondary {
