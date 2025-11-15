@@ -89,38 +89,79 @@ const {
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const heroButton = document.querySelector('[data-hero-button]') as HTMLElement | null;
-    const heroImage = document.querySelector('[data-hero-image]') as HTMLElement | null;
+  import { createTimeline, stagger, text } from "animejs";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const heroContent = document.getElementById("hero-content");
+    const title = heroContent?.querySelector("h1");
+    const subtitle = heroContent?.querySelector("p");
+    const heroButton = document.querySelector("[data-hero-button]") as
+      | HTMLElement
+      | null;
 
     const startTags = () => {
-      document.dispatchEvent(new Event('start-tags'));
+      document.dispatchEvent(new Event("start-tags"));
     };
 
-    const revealElements = () => {
-      // Reveal button
-      if (heroButton) {
-        setTimeout(() => {
-          heroButton.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
-          heroButton.classList.add('pointer-events-auto');
-        }, 800);
-      }
-
-      // Reveal image
-      if (heroImage) {
-        setTimeout(() => {
-          heroImage.classList.remove('opacity-0', 'translate-y-4');
-        }, 1000);
-      }
-
-      // Start scrolling tags
-      setTimeout(() => {
+    const revealButton = () => {
+      if (!heroButton) {
         startTags();
-      }, 1200);
+        return;
+      }
+
+      const buttonTimeline = createTimeline({});
+      buttonTimeline.add(heroButton, {});
+      buttonTimeline.init().then(() => {
+        heroButton.classList.remove(
+          "opacity-0",
+          "translate-y-2",
+          "pointer-events-none"
+        );
+        heroButton.classList.add("pointer-events-auto");
+        startTags();
+      });
     };
 
-    // Simple delay to reveal elements
-    setTimeout(revealElements, 300);
+    if (title || subtitle) {
+      const allChars: HTMLElement[] = [];
+
+      // Split title
+      if (title) {
+        const { chars: titleChars } = text.split(title, {
+          words: false,
+          chars: true,
+        });
+        allChars.push(...titleChars);
+      }
+
+      // Split subtitle
+      if (subtitle) {
+        const { chars: subtitleChars } = text.split(subtitle, {
+          words: false,
+          chars: true,
+        });
+        allChars.push(...subtitleChars);
+      }
+
+      const headlineTimeline = createTimeline({
+        loop: false,
+        defaults: { ease: "inOut(3)", duration: 1500 },
+      });
+
+      headlineTimeline
+        .add(
+          allChars,
+          {
+            y: [($el) => (+$el.dataset.line % 2 ? "100%" : "-200%"), "0%"],
+            opacity: [0, 1],
+          },
+          stagger(10, { from: "random" })
+        )
+        .init()
+        .then(revealButton);
+    } else {
+      revealButton();
+    }
   });
 </script>
 
@@ -147,5 +188,22 @@ const {
   /* Hide horizontal rules in hero content */
   #hero-content hr {
     display: none !important;
+  }
+
+  /* Fix for animated characters - override transparent text fill */
+  #hero-content h1 .char,
+  #hero-content h1 > span,
+  #hero-content h1 span span {
+    -webkit-text-fill-color: currentColor !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    display: inline-block;
+  }
+
+  /* Ensure all text is visible during animation */
+  #hero-content h1 {
+    -webkit-text-fill-color: currentColor !important;
+    background: none !important;
   }
 </style>
