@@ -10,6 +10,7 @@ import Steps2 from '~/components/widgets/Steps2.astro';
 import Content from '~/components/widgets/Content.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Button from '~/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
 
 import FAQs from '~/components/widgets/FAQs.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
@@ -60,13 +61,40 @@ const metadata = {
     enableAnimatedBackground={true}
     enableScrollingTags={true}
     tags={[
-      { text: 'Rust', icon: '🦀' },
-      { text: 'Cross-Platform', icon: '🌐' },
-      { text: 'AI Voice Chat', icon: '🎤' },
-      { text: 'Local LLMs', icon: '🏠' },
-      { text: 'Open Source', icon: '⭐' },
-      { text: 'Makepad', icon: '🎨' },
+      { text: 'Web', icon: '🌐' },
       { text: 'Real-time', icon: '⚡' },
+      { text: 'AI Voice Chat', icon: '🎤' },
+      { text: 'Robius', icon: '🔧' },
+      { text: 'Native', icon: '💻' },
+      { text: 'Fast', icon: '⚡' },
+      { text: 'Local LLMs', icon: '🏠' },
+      { text: 'OpenAI', icon: '🧠' },
+      { text: 'Mobile', icon: '📱' },
+      { text: 'Makepad', icon: '🎨' },
+      { text: 'Moly Local', icon: '🖥️' },
+      { text: 'Privacy', icon: '🔒' },
+      { text: 'Offline', icon: '📱' },
+      { text: 'Chat', icon: '💬' },
+      { text: 'Cross-Platform', icon: '🌐' },
+      { text: 'WASM', icon: '🌐' },
+      { text: 'Open-Source', icon: '⭐' },
+      { text: 'Desktop', icon: '💻' },
+      { text: 'MoFa', icon: '🤖' },
+      { text: 'Agents', icon: '🤖' },
+      { text: 'Moly Server', icon: '🖥️' },
+      { text: 'Secure', icon: '🛡️' },
+      { text: 'Models', icon: '🧠' },
+      { text: 'Multi-platform', icon: '🔄' },
+      { text: 'Dora', icon: '🔧' },
+      { text: 'Rust', icon: '🦀' },
+      { text: 'Download', icon: '⬇️' },
+      { text: 'LLM', icon: '🤖' },
+      { text: 'MolyKit', icon: '🔧' },
+      { text: 'MCP', icon: '🔌' },
+      { text: 'Moxin', icon: '🔥' },
+      { text: 'OpenAI', icon: '🧠' },
+      { text: 'Claude', icon: '🧠' },
+      { text: 'GLM', icon: '🧠' },
     ]}
     tagline="Open-Source • AI • LLM • Voice • Chat • Client"
     actions={[
@@ -81,7 +109,7 @@ const metadata = {
     ]}
   >
     <Fragment slot="title">
-      Moly AI App<br><span class="text-accent dark:text-white">Your Cross-Platform<br></span> AI Companion
+      Moly AI App<br /><span class="text-accent dark:text-white">Your Cross-Platform<br /></span> AI Companion
     </Fragment>
 
     <Fragment slot="subtitle">
@@ -308,10 +336,58 @@ const metadata = {
 
   <CallToAction
     id="download"
-    title="Download Moly AI App now!"
-    subtitle="Access a variety of stunning templates, simplify your creative process, and elevate your online presence."
+    title="Join the AI Revolution"
+    subtitle="Experience the future of AI chat with Moly. Cross-platform, privacy-focused, and built for speed. Connect to local and remote LLMs with one beautiful interface."
+    tagline="Download now for macOS, Windows, Linux, Android, and Web"
   >
-    <div slot="actions" class="flex max-w-sm gap-4"></div>
+    <div slot="actions">
+      <!-- Buttons Row -->
+      <div class="flex max-w-md gap-4 mx-auto mb-8">
+        <Button
+          variant="primary"
+          target="_blank"
+          text="Download Now"
+          href="https://github.com/moly-ai/moly/releases"
+          icon="tabler:download"
+          class="min-w-[140px]"
+        />
+        <Button
+          variant="secondary"
+          target="_blank"
+          text="View Source Code"
+          href="https://github.com/moly-ai/moly"
+          icon="tabler:brand-github"
+          class="min-w-[160px]"
+        />
+      </div>
+
+      <!-- Platform Availability Row -->
+      <div class="mt-6">
+        <p class="text-sm text-muted dark:text-slate-400 mb-4">Available on all major platforms</p>
+        <div class="flex justify-center items-center gap-4 flex-wrap max-w-2xl mx-auto">
+          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+            <Icon name="tabler:brand-apple" class="w-4 h-4" />
+            <span class="text-gray-600 dark:text-slate-300">macOS</span>
+          </div>
+          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+            <Icon name="tabler:brand-windows" class="w-4 h-4" />
+            <span class="text-gray-600 dark:text-slate-300">Windows</span>
+          </div>
+          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+            <Icon name="tabler:devices" class="w-4 h-4" />
+            <span class="text-gray-600 dark:text-slate-300">Linux</span>
+          </div>
+          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+            <Icon name="tabler:brand-android" class="w-4 h-4" />
+            <span class="text-gray-600 dark:text-slate-300">Android</span>
+          </div>
+          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+            <Icon name="tabler:world" class="w-4 h-4" />
+            <span class="text-gray-600 dark:text-slate-300">Web</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </CallToAction>
 
   <!-- FAQs Widget ******************* -->
@@ -357,7 +433,7 @@ const metadata = {
     callToAction={{
       text: 'Join the Discord',
       href: 'https://discord.gg/g2S5ESMz4Q',
-      target: "_blank"
+      target: '_blank',
     }}
     items={[
       {
