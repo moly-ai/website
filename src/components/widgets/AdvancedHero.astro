@@ -91,7 +91,7 @@ const {
 <script>
   import { createTimeline, stagger, text } from "animejs";
 
-  document.addEventListener("DOMContentLoaded", () => {
+  const initHeroAnimations = () => {
     const heroContent = document.getElementById("hero-content");
     const title = heroContent?.querySelector("h1");
     const subtitle = heroContent?.querySelector("p");
@@ -162,7 +162,13 @@ const {
     } else {
       revealButton();
     }
-  });
+  };
+
+  // Initialize animations on initial page load
+  document.addEventListener("DOMContentLoaded", initHeroAnimations);
+
+  // Re-initialize animations after Astro page navigation
+  document.addEventListener("astro:page-load", initHeroAnimations);
 </script>
 
 <style>

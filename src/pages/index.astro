@@ -123,7 +123,7 @@ const metadata = {
   <AdvancedFeatures
     id="features"
     title="What is Moly App?"
-    subtitle="Moly is a powerful AI LLM client written in Rust, demonstrating the capabilities of the Makepad UI toolkit and Project Robius framework. It supports multiple AI providers including OpenAI-compatible services, local LLMs via Moly Server, and AI agents through MoFa servers. Whether you prefer cloud-based models or want complete privacy with local execution, Moly provides a unified, beautiful interface for all your AI interactions."
+    subtitle="Moly <span class='text-muted opacity-75 font-normal align-baseline inline-block'>(pronounced [moh-lee], like Holy)</span> is a powerful AI LLM client written in Rust, demonstrating the capabilities of the Makepad UI toolkit and Project Robius framework. It supports multiple AI providers including OpenAI-compatible services, local LLMs via Moly Server, and AI agents through MoFa servers. Whether you prefer cloud-based models or want complete privacy with local execution, Moly provides a unified, beautiful interface for all your AI interactions."
     columns={3}
     cardTheme="glassmorphism"
     enableAnimation={true}
@@ -511,8 +511,8 @@ const metadata = {
 </Layout>
 
 <script>
-  // Initialize scroll animations when the page loads
-  document.addEventListener('DOMContentLoaded', () => {
+  // Function to initialize scroll animations
+  const initScrollAnimations = () => {
     // Import and initialize animations
     import('../utils/scrollAnimations.js')
       .then((module) => {
@@ -521,5 +521,27 @@ const metadata = {
       .catch((err) => {
         console.warn('Could not load scroll animations:', err);
       });
+  };
+
+  // Initialize animations when the page loads
+  document.addEventListener('DOMContentLoaded', initScrollAnimations);
+
+  // Also initialize animations after Astro page navigation (swapping)
+  document.addEventListener('astro:page-load', initScrollAnimations);
+
+  // Re-trigger hero animations on navigation
+  document.addEventListener('astro:page-load', () => {
+    // Reset hero content opacity for re-animation
+    const heroButton = document.querySelector('[data-hero-button]');
+    if (heroButton) {
+      heroButton.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+      heroButton.classList.remove('pointer-events-auto');
+    }
+
+    // Reset scrolling tags opacity
+    const scrollingTags = document.getElementById('scrolling-tags');
+    if (scrollingTags) {
+      scrollingTags.style.opacity = '0';
+    }
   });
 </script>

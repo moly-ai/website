@@ -386,12 +386,18 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
     DOMCache.isInitialized = false;
   }
 
-  document.addEventListener('start-tags', () => {
+  const startTagsAnimation = () => {
     DOMCache.init();
     const tagsContainer = DOMCache.getContainer();
     if (!tagsContainer) {
       return;
     }
+
+    // Clean up existing animations before starting new ones
+    cleanupScrollingTags();
+
+    // Re-initialize DOM cache after cleanup
+    DOMCache.init();
 
     prepareTags();
     updateMasks();
@@ -399,7 +405,9 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
 
     // Fade in the tags
     tagsContainer.style.opacity = '0.7';
-  });
+  };
+
+  document.addEventListener('start-tags', startTagsAnimation);
 
   window.addEventListener('resize', () => {
     updateMasks();

@@ -214,8 +214,8 @@ import '@fontsource-variable/inter';
     color: var(--aw-color-accent);
   }
 
-  /* Exclude button-style links from animated underline effect */
-  a:not([class*='btn']):not([class*='inline-flex'])::after {
+  /* Exclude button-style links and header menu links from animated underline effect */
+  a:not([class*='btn']):not([class*='inline-flex']):not(#header a)::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -226,7 +226,7 @@ import '@fontsource-variable/inter';
     transition: width 0.3s ease;
   }
 
-  a:not([class*='btn']):not([class*='inline-flex']):hover::after {
+  a:not([class*='btn']):not([class*='inline-flex']):not(#header a):hover::after {
     width: 100%;
   }
 </style>

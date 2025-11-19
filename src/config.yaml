@@ -1,6 +1,6 @@
 site:
   name: Moly AI App
-  site: 'https://molyapp.ai'
+  site: 'https://moly-ai.ai'
   base: '/'
   trailingSlash: false
 

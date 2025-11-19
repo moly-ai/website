@@ -154,7 +154,7 @@ export const footerData = {
   ],
   socialLinks: [
     { ariaLabel: 'Discord', icon: 'tabler:brand-discord', href: 'https://discord.gg/g2S5ESMz4Q' },
-    { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/molyapp' },
+    { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/moly-ai' },
   ],
   footNote: ` `,
 };
