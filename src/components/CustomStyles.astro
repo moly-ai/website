@@ -46,7 +46,7 @@ import '@fontsource-variable/inter';
     --aw-color-text-muted: rgb(71 85 105);
 
     /* Background colors */
-    --aw-color-bg-page: rgb(255 255 255);
+    --aw-color-bg-page: rgb(239 246 255);
     --aw-color-bg-card: rgb(255 255 255);
     --aw-color-bg-border: rgb(226 232 240);
 
@@ -112,24 +112,30 @@ import '@fontsource-variable/inter';
   }
 
   /* MonaKit-inspired fluid typography */
-  h1, .text-4xl, .text-5xl, .text-6xl {
+  h1,
+  .text-4xl,
+  .text-5xl,
+  .text-6xl {
     font-size: clamp(2rem, 5vw, 4rem);
     line-height: 1.1;
     letter-spacing: -0.02em;
   }
 
-  h2, .text-3xl {
+  h2,
+  .text-3xl {
     font-size: clamp(1.5rem, 4vw, 3rem);
     line-height: 1.2;
     letter-spacing: -0.01em;
   }
 
-  h3, .text-2xl {
+  h3,
+  .text-2xl {
     font-size: clamp(1.25rem, 3vw, 2rem);
     line-height: 1.3;
   }
 
-  h4, .text-xl {
+  h4,
+  .text-xl {
     font-size: clamp(1.125rem, 2.5vw, 1.5rem);
     line-height: 1.4;
   }
@@ -150,7 +156,12 @@ import '@fontsource-variable/inter';
   }
 
   /* Enhanced heading styles */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: 700;
     font-family: var(--aw-font-heading);
     background: linear-gradient(135deg, var(--aw-color-text-heading) 0%, var(--aw-color-text-default) 100%);
@@ -159,7 +170,12 @@ import '@fontsource-variable/inter';
     -webkit-text-fill-color: transparent;
   }
 
-  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  .dark h1,
+  .dark h2,
+  .dark h3,
+  .dark h4,
+  .dark h5,
+  .dark h6 {
     background: linear-gradient(135deg, var(--aw-color-text-heading) 0%, var(--aw-color-text-default) 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -178,7 +194,8 @@ import '@fontsource-variable/inter';
   } */
 
   /* Body text enhancements */
-  p, .prose p {
+  p,
+  .prose p {
     font-family: var(--aw-font-serif);
     color: var(--aw-color-text-default);
     line-height: 1.7;
@@ -198,7 +215,7 @@ import '@fontsource-variable/inter';
   }
 
   /* Exclude button-style links from animated underline effect */
-  a:not([class*="btn"]):not([class*="inline-flex"])::after {
+  a:not([class*='btn']):not([class*='inline-flex'])::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -209,7 +226,7 @@ import '@fontsource-variable/inter';
     transition: width 0.3s ease;
   }
 
-  a:not([class*="btn"]):not([class*="inline-flex"]):hover::after {
+  a:not([class*='btn']):not([class*='inline-flex']):hover::after {
     width: 100%;
   }
 </style>

@@ -53,7 +53,6 @@ const metadata = {
           icon: 'tabler:download',
         },
       ]}
-      isSticky
     />
   </Fragment>
 
@@ -368,7 +367,9 @@ const metadata = {
       <div class="mt-6">
         <p class="text-sm text-muted dark:text-slate-400 mb-4">Available on all major platforms</p>
         <div class="flex justify-center items-center gap-2 flex-wrap max-w-3xl mx-auto">
-          <div class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+          <div
+            class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs"
+          >
             <Icon name="tabler:brand-apple" class="w-4 h-4" />
             <span class="text-gray-600 dark:text-slate-300">macOS</span>
           </div>
@@ -378,11 +379,15 @@ const metadata = {
             <Icon name="tabler:brand-windows" class="w-4 h-4" />
             <span class="text-gray-600 dark:text-slate-300">Windows</span>
           </div>
-          <div class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+          <div
+            class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs"
+          >
             <Icon name="tabler:devices" class="w-4 h-4" />
             <span class="text-gray-600 dark:text-slate-300">Linux</span>
           </div>
-          <div class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+          <div
+            class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs"
+          >
             <Icon name="tabler:brand-apple" class="w-4 h-4" />
             <span class="text-gray-600 dark:text-slate-300">iOS</span>
           </div>
@@ -413,9 +418,9 @@ const metadata = {
             <div class="text-sm text-left">
               <p class="text-blue-800 dark:text-blue-200 font-medium mb-1 text-left">Platform Availability</p>
               <p class="text-blue-700 dark:text-blue-300 text-left">
-                The macOS version is currently the most stable and feature-complete platform.
-                Other platforms (Windows, Linux, iOS, Android, and Web) are in active development
-                and may have limited functionality compared to macOS.
+                The macOS version is currently the most stable and feature-complete platform. Other platforms (Windows,
+                Linux, iOS, Android, and Web) are in active development and may have limited functionality compared to
+                macOS.
               </p>
             </div>
           </div>
