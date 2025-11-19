@@ -23,8 +23,8 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 
 export default defineConfig({
   output: 'static',
-  site: 'https://moly-ai.github.io',
-  base: '/website',
+  site: 'https://moly-ai.ai',
+  base: '/',
 
   integrations: [
     tailwind({
