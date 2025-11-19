@@ -1,7 +1,7 @@
 site:
   name: Moly AI App
-  site: 'https://moly-ai.ai'
-  base: '/'
+  site: 'https://moly-ai.github.io'
+  base: '/website'
   trailingSlash: false
 
   googleSiteVerificationId: orcPxI47GSa-
