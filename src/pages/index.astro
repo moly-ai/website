@@ -16,9 +16,8 @@ import FAQs from '~/components/widgets/FAQs.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import { initAnimations } from '~/utils/scrollAnimations.js';
 
-// Import video and poster image
+// Import demo video
 import molyDemoVideo from '~/assets/videos/moly-chat-demo.mov';
-import heroPosterImage from '~/assets/images/hero-image.png';
 
 const metadata = {
   title: 'Moly App - Open-Source Cross-Platform AI LLM Voice Chat Client',
@@ -198,8 +197,8 @@ const metadata = {
         </p>
       </div>
       <div class="relative m-auto max-w-5xl">
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-          <video class="mx-auto w-full" autoplay muted loop playsinline poster={heroPosterImage.src}>
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-900">
+          <video class="mx-auto w-full" autoplay muted loop playsinline>
             <source src={molyDemoVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
