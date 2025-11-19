@@ -31,6 +31,8 @@ const metadata = {
       position="left"
       links={[
         { text: 'Features', href: '#features' },
+        { text: 'Demo', href: '#demo' },
+        { text: 'Download', href: '#download' },
         { text: 'FAQs', href: '#faqs' },
       ]}
       isSticky
@@ -39,14 +41,14 @@ const metadata = {
         {
           variant: 'secondary',
           text: 'Github',
-          href: 'https://github.com/moly-ai/moly',
+          href: 'https://github.com/moly-ai/moly-ai',
           target: '_blank',
           icon: 'tabler:brand-github',
         },
         {
           variant: 'primary',
           text: 'Download',
-          href: 'https://github.com/moly-ai/moly/releases',
+          href: 'https://github.com/moly-ai/moly-ai/releases',
           target: '_blank',
           icon: 'tabler:download',
         },
@@ -102,7 +104,7 @@ const metadata = {
         variant: 'primary',
         target: '_blank',
         text: 'Download Now',
-        href: 'https://github.com/moly-ai/moly/releases',
+        href: 'https://github.com/moly-ai/moly-ai/releases',
         icon: 'tabler:download',
       },
       { text: 'Learn more', href: '#features' },
@@ -113,7 +115,7 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="subtitle">
-      Built in Rust. Connect to local and remote LLMs with a beautiful, fast, and secure interface.
+      Built in Rust. Connect to local and remote LLMs with a beautiful, fast, and secure <br />interface.
     </Fragment>
   </AdvancedHero>
 
@@ -122,7 +124,7 @@ const metadata = {
   <AdvancedFeatures
     id="features"
     title="What is Moly App?"
-    subtitle="Discover the powerful features that make Moly the ultimate AI LLM client."
+    subtitle="Moly is a powerful AI LLM client written in Rust, demonstrating the capabilities of the Makepad UI toolkit and Project Robius framework. It supports multiple AI providers including OpenAI-compatible services, local LLMs via Moly Server, and AI agents through MoFa servers. Whether you prefer cloud-based models or want complete privacy with local execution, Moly provides a unified, beautiful interface for all your AI interactions."
     columns={3}
     cardTheme="glassmorphism"
     enableAnimation={true}
@@ -188,7 +190,7 @@ const metadata = {
 
   <!-- Video Demo Section *************** -->
 
-  <section class="py-12 md:py-20 bg-blue-50 dark:bg-slate-900">
+  <section id="demo" class="py-12 md:py-20 bg-blue-50 dark:bg-slate-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-8">
         <h2 class="text-3xl md:text-4xl font-bold mb-4 dark:text-white">See Moly in Action</h2>
@@ -338,8 +340,9 @@ const metadata = {
     id="download"
     title="Join the AI Revolution"
     subtitle="Experience the future of AI chat with Moly. Cross-platform, privacy-focused, and built for speed. Connect to local and remote LLMs with one beautiful interface."
-    tagline="Download now for macOS, Windows, Linux, Android, and Web"
   >
+    <!-- tagline="Download now for macOS, Windows, Linux, Android, and Web" -->
+
     <div slot="actions">
       <!-- Buttons Row -->
       <div class="flex max-w-md gap-4 mx-auto mb-8">
@@ -347,7 +350,7 @@ const metadata = {
           variant="primary"
           target="_blank"
           text="Download Now"
-          href="https://github.com/moly-ai/moly/releases"
+          href="https://github.com/moly-ai/moly-ai/releases"
           icon="tabler:download"
           class="min-w-[140px]"
         />
@@ -355,7 +358,7 @@ const metadata = {
           variant="secondary"
           target="_blank"
           text="View Source Code"
-          href="https://github.com/moly-ai/moly"
+          href="https://github.com/moly-ai/moly-ai"
           icon="tabler:brand-github"
           class="min-w-[160px]"
         />
@@ -364,24 +367,34 @@ const metadata = {
       <!-- Platform Availability Row -->
       <div class="mt-6">
         <p class="text-sm text-muted dark:text-slate-400 mb-4">Available on all major platforms</p>
-        <div class="flex justify-center items-center gap-4 flex-wrap max-w-2xl mx-auto">
-          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+        <div class="flex justify-center items-center gap-2 flex-wrap max-w-3xl mx-auto">
+          <div class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
             <Icon name="tabler:brand-apple" class="w-4 h-4" />
             <span class="text-gray-600 dark:text-slate-300">macOS</span>
           </div>
-          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+          <div
+            class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs"
+          >
             <Icon name="tabler:brand-windows" class="w-4 h-4" />
             <span class="text-gray-600 dark:text-slate-300">Windows</span>
           </div>
-          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+          <div class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
             <Icon name="tabler:devices" class="w-4 h-4" />
             <span class="text-gray-600 dark:text-slate-300">Linux</span>
           </div>
-          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+          <div class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+            <Icon name="tabler:brand-apple" class="w-4 h-4" />
+            <span class="text-gray-600 dark:text-slate-300">iOS</span>
+          </div>
+          <div
+            class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs"
+          >
             <Icon name="tabler:brand-android" class="w-4 h-4" />
             <span class="text-gray-600 dark:text-slate-300">Android</span>
           </div>
-          <div class="platform-badge flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+          <div
+            class="platform-badge flex items-center gap-2 px-2 py-1.5 bg-gray-100 dark:bg-gray-800/60 rounded-lg border border-gray-200 dark:border-gray-700 text-xs"
+          >
             <Icon name="tabler:world" class="w-4 h-4" />
             <span class="text-gray-600 dark:text-slate-300">Web</span>
           </div>
@@ -389,6 +402,27 @@ const metadata = {
       </div>
     </div>
   </CallToAction>
+
+  <!-- Platform Stability Note -->
+  <section class="pb-12 md:pb-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <Icon name="tabler:info-circle" class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+            <div class="text-sm text-left">
+              <p class="text-blue-800 dark:text-blue-200 font-medium mb-1 text-left">Platform Availability</p>
+              <p class="text-blue-700 dark:text-blue-300 text-left">
+                The macOS version is currently the most stable and feature-complete platform.
+                Other platforms (Windows, Linux, iOS, Android, and Web) are in active development
+                and may have limited functionality compared to macOS.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- FAQs Widget ******************* -->
 
@@ -438,7 +472,7 @@ const metadata = {
     items={[
       {
         title: 'Report Issues',
-        description: 'github.com/moly-ai/moly/issues',
+        description: 'github.com/moly-ai/moly-ai/issues',
         icon: 'tabler:bug',
       },
       {
