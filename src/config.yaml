@@ -9,16 +9,16 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Moly AI App
-    template: '%s — AstroWind'
-  description: "\U0001F680 Moly AI App Homepage; landing page, marketing, blog, index"
+    default: Moly AI App - Cross-Platform AI Voice Chat Client
+    template: '%s — Moly AI App'
+  description: "Open-source cross-platform AI LLM voice chat client built in Rust. Connect to local and remote LLMs with a beautiful, fast, and secure interface. Available on macOS, Windows, Linux, iOS, Android, and Web."
   robots:
     index: true
     follow: true
   openGraph:
     site_name: Moly AI App
     images:
-      - url: '~/assets/images/default.png'
+      - url: '~/assets/images/hero-image.png'
         width: 1200
         height: 628
     type: website
