@@ -59,7 +59,7 @@ const metadata = {
 
   <AdvancedHero
     enableAnimatedBackground={true}
-    enableScrollingTags={true}
+    enableScrollingTags={false}
     tags={[
       { text: 'Web', icon: '🌐' },
       { text: 'Real-time', icon: '⚡' },
@@ -184,7 +184,11 @@ const metadata = {
         flip: true,
       },
     ]}
-  />
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-white dark:bg-slate-950"></div>
+    </Fragment>
+  </AdvancedFeatures>
 
   <!-- Video Demo Section *************** -->
 
@@ -405,10 +409,13 @@ const metadata = {
         </div>
       </div>
     </div>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-white dark:bg-slate-950"></div>
+    </Fragment>
   </CallToAction>
 
   <!-- Platform Stability Note -->
-  <section class="pb-12 md:pb-20">
+  <section class="pb-12 md:pb-20 bg-white dark:bg-slate-950">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="max-w-4xl mx-auto">
         <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
@@ -490,7 +497,11 @@ const metadata = {
         icon: 'tabler:git-branch',
       },
     ]}
-  />
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-white dark:bg-slate-950"></div>
+    </Fragment>
+  </Steps2>
 
   <!-- BlogLatestPost Widget **************** -->
 
