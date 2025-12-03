@@ -42,11 +42,11 @@ const tagRows = Array.from({ length: 3 }, (_, i) =>
 <script>
   const ANIMATION_CONFIG = {
     TAG_GAP: 16,
-    SPEED_PX_PER_SECOND: 120,
+    SPEED_PX_PER_SECOND: 60, // Reduced from 120 to 60 for lower GPU usage
     MASK_OFFSET: 6,
-    MASK_BLUR: 8, // Reduced blur for simpler gradient
+    MASK_BLUR: 8,
     HOVER_DELAY: 150,
-    CONTAINER_MULTIPLIER: 2,
+    CONTAINER_MULTIPLIER: 1.5, // Reduced from 2 to 1.5 for fewer elements
     RESIZE_DEBOUNCE_MS: 150,
   };
 
@@ -456,5 +456,45 @@ const tagRows = Array.from({ length: 3 }, (_, i) =>
     });
   });
 
-  window.addEventListener('beforeunload', cleanupScrollingTags);
+  // Pause animations when scrolled out of view using Intersection Observer
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1, // Trigger when 10% visible
+  };
+
+  const observerCallback = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      const tracks = DOMCache.getTracks();
+      tracks.forEach((track) => {
+        const timeline = trackTimelines.get(track);
+        if (timeline?.animation) {
+          if (entry.isIntersecting) {
+            // Resume if visible and not hovered
+            if (!trackHoverStates.get(track) && !document.hidden) {
+              timeline.animation.play();
+            }
+          } else {
+            // Pause when not visible
+            timeline.animation.pause();
+          }
+        }
+      });
+    });
+  };
+
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+  // Start observing when tags are initialized
+  document.addEventListener('start-tags', () => {
+    const tagsContainer = DOMCache.getContainer();
+    if (tagsContainer) {
+      observer.observe(tagsContainer);
+    }
+  });
+
+  window.addEventListener('beforeunload', () => {
+    observer.disconnect();
+    cleanupScrollingTags();
+  });
 </script>
