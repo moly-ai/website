@@ -7,24 +7,27 @@ export interface Props {
 
 const { uniqueTags } = Astro.props;
 
-// Duplicate tags multiple times to ensure we have enough for 5 rows
-const duplicatedTags = [...uniqueTags, ...uniqueTags, ...uniqueTags, ...uniqueTags, ...uniqueTags];
-const tagsPerRow = Math.ceil(duplicatedTags.length / 5);
-const tagRows = Array.from({ length: 5 }, (_, i) =>
+// Duplicate tags multiple times to ensure we have enough for 3 rows
+const duplicatedTags = [...uniqueTags, ...uniqueTags, ...uniqueTags];
+const tagsPerRow = Math.ceil(duplicatedTags.length / 3);
+const tagRows = Array.from({ length: 3 }, (_, i) =>
   duplicatedTags.slice(i * tagsPerRow, (i + 1) * tagsPerRow).filter(Boolean),
 );
 ---
 
 <div
   id="scrolling-tags"
-  class="tags-bg absolute inset-0 transition-opacity duration-1000 pointer-events-none z-0 pt-20"
+  class="tags-bg absolute inset-0 transition-opacity duration-1000 pointer-events-none z-0 flex flex-col justify-between py-8"
   style="opacity: 0;"
 >
   {
     tagRows.map((row, index) => (
       <div
-        class="tag-row flex h-1/5 items-center overflow-hidden"
-        data-mask={index >= 1 && index <= 3 ? 'true' : 'false'}
+        class:list={[
+          'tag-row flex items-center overflow-hidden',
+          { 'mt-16': index === 0, 'mb-16': index === 2 }
+        ]}
+        data-mask={index === 1 ? 'true' : 'false'}
         data-row-index={index}
       >
         <div
@@ -41,10 +44,26 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
     TAG_GAP: 16,
     SPEED_PX_PER_SECOND: 120,
     MASK_OFFSET: 6,
-    MASK_BLUR: 12,
+    MASK_BLUR: 8, // Reduced blur for simpler gradient
     HOVER_DELAY: 150,
     CONTAINER_MULTIPLIER: 2,
+    RESIZE_DEBOUNCE_MS: 150,
   };
+
+  function debounce<T extends (...args: any[]) => any>(
+    func: T,
+    wait: number
+  ): (...args: Parameters<T>) => void {
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    return function executedFunction(...args: Parameters<T>) {
+      const later = () => {
+        timeout = null;
+        func(...args);
+      };
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
 
   const tagToTrackMap = new WeakMap<HTMLElement, HTMLElement>();
   const trackTimelines = new WeakMap<HTMLElement, { animation: Animation | null }>();
@@ -129,7 +148,7 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
   function createTagNode(text: string, track: HTMLElement) {
     const div = document.createElement('div');
     div.className =
-      'tag px-3 py-1.5 rounded-full font-medium text-xs flex-shrink-0 backdrop-blur-md border bg-gray-200/80 dark:bg-gray-800/80 border-gray-300/60 dark:border-gray-700/60 text-gray-800 dark:text-gray-200 shadow-sm';
+      'tag px-3 py-1.5 rounded-full font-medium text-xs flex-shrink-0 border bg-gray-200/90 dark:bg-gray-800/90 border-gray-300/60 dark:border-gray-700/60 text-gray-800 dark:text-gray-200 shadow-sm';
     div.textContent = text.toLowerCase();
 
     tagToTrackMap.set(div, track);
@@ -235,7 +254,10 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
       (bounds.right / vw) * 100 + ANIMATION_CONFIG.MASK_OFFSET
     );
 
-    const gradient = `linear-gradient(to right, black 0%, black ${Math.max(0, leftPercent - ANIMATION_CONFIG.MASK_BLUR)}%, transparent ${leftPercent}%, transparent ${rightPercent}%, black ${Math.min(100, rightPercent + ANIMATION_CONFIG.MASK_BLUR)}%, black 100%)`;
+    // Simplified gradient with fewer stops for better performance
+    const leftBlurStart = Math.max(0, leftPercent - ANIMATION_CONFIG.MASK_BLUR);
+    const rightBlurEnd = Math.min(100, rightPercent + ANIMATION_CONFIG.MASK_BLUR);
+    const gradient = `linear-gradient(to right, black ${leftBlurStart}%, transparent ${leftPercent}%, transparent ${rightPercent}%, black ${rightBlurEnd}%)`;
 
     DOMCache.getTagRows().forEach((row: HTMLElement) => {
       const maskProperties =
@@ -409,9 +431,29 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
 
   document.addEventListener('start-tags', startTagsAnimation);
 
-  window.addEventListener('resize', () => {
+  const handleResize = debounce(() => {
     updateMasks();
     startAnimation();
+  }, ANIMATION_CONFIG.RESIZE_DEBOUNCE_MS);
+
+  window.addEventListener('resize', handleResize);
+
+  // Pause animations when tab is inactive to save GPU resources
+  document.addEventListener('visibilitychange', () => {
+    const tracks = DOMCache.getTracks();
+    tracks.forEach((track) => {
+      const timeline = trackTimelines.get(track);
+      if (timeline?.animation) {
+        if (document.hidden) {
+          timeline.animation.pause();
+        } else {
+          // Only resume if not currently hovered
+          if (!trackHoverStates.get(track)) {
+            timeline.animation.play();
+          }
+        }
+      }
+    });
   });
 
   window.addEventListener('beforeunload', cleanupScrollingTags);

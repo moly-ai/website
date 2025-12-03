@@ -43,9 +43,9 @@
   border-color: hsl(var(--primary) / 0.6);
 }
 
-/* Reduce vertical spacing between tag rows by 10% */
+/* Tag rows use flexbox spacing instead of fixed height */
 .tags-bg .tag-row {
-  height: 18% !important;
+  flex-shrink: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
