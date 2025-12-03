@@ -3,9 +3,11 @@ import { SITE } from 'astrowind:config';
 import molyLogo from '~/assets/images/moly-logo.png';
 ---
 
-<span
-  class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white"
->
+<span class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold whitespace-nowrap">
   <img src={molyLogo.src} alt="Logo" class="inline h-8 w-8 mr-2 mb-1" />
-  {SITE?.name}
+  <span
+    class="bg-gradient-to-r from-purple-400 via-emerald-500 via-amber-400 to-violet-500 dark:from-indigo-400 dark:via-green-400 dark:via-amber-500 dark:to-purple-500 bg-clip-text text-transparent"
+  >
+    {SITE?.name}
+  </span>
 </span>
